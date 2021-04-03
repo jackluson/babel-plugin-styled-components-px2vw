@@ -1,0 +1,76 @@
+{
+  "name": "node-typescript-template",
+  "version": "1.0.0",
+  "author": "jackluson <18219112108@163.com>",
+  "description": "a project template for Node Typescript development",
+  "keywords": [
+    "px2vw",
+    "styled-components",
+    "babel"
+  ],
+  "homepage": "https://github.com/jackluson/babel-plugin-styled-components-px2vw",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackluson/babel-plugin-styled-components-px2vw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jackluson/babel-plugin-styled-components-px2vw/issues"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "lint": "eslint src/**/*.ts --fix",
+    "prettier": "prettier src/**/*.ts --write",
+    "build": "tsc -p .",
+    "watch": "tsc -w -p .",
+    "run:build": "node dist/index.js",
+    "precommit": "lint-staged -q"
+  },
+  "peerDependencies": {
+    "postcss": "^7.0.0",
+    "@babel/core": "^7.13.14",
+    "postcss-px-to-viewport": "^1.1.1"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.13.0",
+    "memoizerific": "^1.11.3",
+    "postcss": "^7.0.0",
+    "postcss-px-to-viewport": "^1.1.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
+    "@babel/traverse": "^7.13.13",
+    "@babel/types": "^7.13.14",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@types/babel__core": "^7.1.14",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "eslint": "^7.23.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "git-cz": "^4.7.4",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "ts-node-dev": "^1.1.6"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,json}": "prettier --write",
+    "src/**/*.{js,ts}": [
+      "eslint --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit",
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
+  }
+}
