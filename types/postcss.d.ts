@@ -7,5 +7,3 @@ declare module 'postcss-px-to-viewport' {
 
   export = px2vw;
 }
-
-// declare module 'postcss-scss';
