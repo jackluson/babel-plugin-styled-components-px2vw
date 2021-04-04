@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-styled-components-px2vw",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "jackluson <18219112108@163.com>",
   "description": "Babel plugin for convert px to vw units of styled-components",
   "keywords": [
@@ -30,14 +30,13 @@
     "precommit": "lint-staged -q"
   },
   "peerDependencies": {
-    "postcss": "^7.0.0",
     "@babel/core": "^7.13.14",
+    "postcss": "^8.2.9",
     "postcss-px-to-viewport": "^1.1.1"
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.13.0",
     "memoizerific": "^1.11.3",
-    "postcss": "^7.0.0",
     "postcss-px-to-viewport": "^1.1.1",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"

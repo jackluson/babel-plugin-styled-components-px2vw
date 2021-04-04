@@ -1,9 +1,8 @@
 declare module 'postcss-px-to-viewport' {
-  import { Plugin } from 'postcss';
+  import { PluginCreator } from 'postcss';
   import { IPx2VwOptions } from 'types/options';
-  // import { PluginCreator } from 'postcss'; # postcss v8
 
-  const px2vw: Plugin<IPx2VwOptions>;
+  const px2vw: PluginCreator<IPx2VwOptions>;
 
   export = px2vw;
 }

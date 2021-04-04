@@ -8,7 +8,7 @@ class ConfigurationManager {
   private static readonly defaultConfiguration: IConfiguration = {
     unitToConvert: 'px',
     viewportWidth: 750,
-    unitPrecision: 3,
+    unitPrecision: 5,
     propList: ['*'],
     viewportUnit: 'vw',
     fontViewportUnit: 'vw',

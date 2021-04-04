@@ -1,16 +1,63 @@
 # babel-plugin-styled-components-px2vw
 
-[Babel](https://babeljs.io/) plugin for convert `px` to `rem` units of [styled-components](https://www.styled-components.com/)
+[![npm version](https://badge.fury.io/js/babel-plugin-styled-components-px2vw.svg)](https://badge.fury.io/js/babel-plugin-styled-components-px2vw)
 
-## Usage
+[Babel](https://babeljs.io/) plugin for convert `px` to `rem` units of [styled-components](https://www.styled-components.com/). its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem)
+
+1. Use [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport) to process all css text in template strings.
+
+## Getting Started
+
+### Installation
+
+Add via npm
+
+`$ npm install babel-plugin-styled-components-px2vw --save-dev`
+
+or yarn
+
+`$ yarn add -D babel-plugin-styled-components-px2vw`
+
+### Configuration
+
+babel.config.js:
+
+```javascript
+module.exports = {
+  plugins: [['styled-components-px2vw', { unitToConvert: 'px', unitPrecision: 5, minPixelValue: 0 }]],
+};
+```
+
+or .babelrc:
+
+```javascript
+{
+  "plugins": [
+    [
+      "styled-components-px2vw",
+      { "unitToConvert": 'px', "unitPrecision": 5, "minPixelValue": 0 }
+    ]
+  ]
+}
+```
 
 see [example](example)
 
-## Options
+### Options
 
-| name |   type   | required | default                                             |                                                                                                                                                            description |
-| :--- | :------: | :------: | :-------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| tags | string[] |  false   | ["styled", "css", "createGlobalStyle", "keyframes"] | [styled-components](https://www.styled-components.com/) template literal [tagged](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) |
+> The options of the plugin are based on some of the option of [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)
+
+| name             |   type   | required | default                                             |                                                                                                                                                            description |
+| :--------------- | :------: | :------: | :-------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| tags             | string[] |  false   | ["styled", "css", "createGlobalStyle", "keyframes"] | [styled-components](https://www.styled-components.com/) template literal [tagged](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) |
+| unitToConvert    |  string  |  false   | px                                                  |                                                                                                                                                        unit to convert |
+| viewportWidth    |  number  |  false   | 750                                                 |                                                                                                                                             The width of the viewport. |
+| unitPrecision    |  number  |  false   | 5                                                   |                                                                                                                  The decimal numbers to allow the vw units to grow to. |
+| propList         | string[] |  false   | ["*"]                                               |               The properties that can change from px to vw. more detail see [postcss-px-to-viewport propList opions](https://github.com/evrone/postcss-px-to-viewport) |
+| viewportUnit     |  string  |  false   | vw                                                  |                                                                                                                                                        Expected units. |
+| fontViewportUnit |  string  |  false   | vw                                                  |                                                                                                                                               Expected units for font. |
+| minPixelValue    |  number  |  false   | 1                                                   |                                                                                                                                Set the minimum pixel value to replace. |
+| replace          | boolean  |  false   | false                                               |                                                                                                              replaces rules containing vw instead of adding fallbacks. |
 
 ## Demo
 
@@ -169,3 +216,6 @@ const SizeableButton = styled.button(
 `,
 );
 ```
+
+License
+This project is licensed under the [MIT License](https://github.com/jackluson/babel-plugin-styled-components-px2vw/blob/master/LICENSE).
