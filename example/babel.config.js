@@ -7,7 +7,7 @@ module.exports = {
         propList: ['*', '!border-*'],
         // tags: ['styled'],
         viewportWidth: 750,
-        unitPrecision: 3,
+        unitPrecision: 5,
       },
     ],
   ],

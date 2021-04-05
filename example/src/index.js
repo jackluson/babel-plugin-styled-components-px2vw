@@ -1,4 +1,45 @@
 import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
+export const GlobalStyleV = createGlobalStyle`
+  html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
+    background-color: ${(p) => p.theme.background};
+  }
+  body.fontLoaded {
+    font-size: 128px;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  @media (orientation: landscape) {
+    body {
+      flex-direction: row;
+      width: 168px;
+      font-size: 23px;
+      section{width: 568px;
+        font-size: 23px;
+      }
+    }
+    .div {
+      font-size: 23px;
+      width: 568px;
+    }
+  }
+  p {
+    line-height: 11.5px;
+  }
+
+  input, select, button {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .icon {
+     //next
+    background: url("http://ji"); /*j:// */
+    width: 24px; //hui
+    height: 23px; //78
+  }
+`;
 
 const mixins = css`
   padding: 0 18px;
@@ -72,6 +113,6 @@ const SizeableButton = styled.button(
   width: ${props.width}px;
   height: ${props.height}px;
   line-height: ${props.height}px;
-  font-size: 16px;
+  font-size: 18px;
 `,
 );

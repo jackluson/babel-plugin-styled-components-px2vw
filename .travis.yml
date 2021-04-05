@@ -7,7 +7,8 @@ branches:
     - main
     - "/^v?\\d{1}\\.\\d{1,2}.\\d{1,2}$/"
 
-script: 'true'
+script:
+  - echo "$NPM_TOKEN"
 notifications:
   email:
     recipients:
@@ -19,8 +20,8 @@ deploy:
   edge: true
   provider: npm
   email: luxuemin2108@gmail.com
-  api_key:
-    secure: $NPM_TOKEN
+  api_key: '$NPM_TOKEN'
+  skip_cleanup: true
   on:
     tags: true
     repo: jackluson/babel-plugin-styled-components-px2vw
