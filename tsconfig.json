@@ -15,8 +15,8 @@
     "rootDir": "src",
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./types"],
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
   "include": ["src", "types"],
-  "exclude": ["node_modules"]
+  "exclude": ["src/**/__tests__", "lib", "example", "node_modules"]
 }
