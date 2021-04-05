@@ -1,0 +1,25 @@
+language: node_js
+version: 1.0
+node_js:
+  - node
+branches:
+  only:
+    - master
+    - "/^\\d{1}\\.\\d{1,2}.\\d{1,2}$/"
+
+notifications:
+  email:
+    recipients:
+      - luxuemin2108@gmail.com
+    on_success: never
+    on_failure: always
+before_deploy: npm run build
+deploy:
+  edge: true
+  provider: npm
+  email: luxuemin2108@gmail.com
+  api_key:
+    secure: $NPM_TOKEN
+  on:
+    tags: true
+    repo: jackluson/babel-plugin-styled-components-px2vw

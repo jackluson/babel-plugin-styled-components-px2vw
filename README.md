@@ -217,5 +217,6 @@ const SizeableButton = styled.button(
 );
 ```
 
-License
+### License
+
 This project is licensed under the [MIT License](https://github.com/jackluson/babel-plugin-styled-components-px2vw/blob/master/LICENSE).
