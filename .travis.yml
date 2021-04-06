@@ -7,21 +7,38 @@ branches:
     - main
     - "/^v?\\d{1}\\.\\d{1,2}.\\d{1,2}$/"
 
-script:
-  - echo "$NPM_TOKEN"
+# script:
+#   - echo $NPM_AUTH_TOKEN
+#   - npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
 notifications:
   email:
     recipients:
       - luxuemin2108@gmail.com
     on_success: never
     on_failure: always
-before_deploy: npm run build
-deploy:
-  edge: true
-  provider: npm
-  email: luxuemin2108@gmail.com
-  api_key: '$NPM_TOKEN'
-  skip_cleanup: true
-  on:
-    tags: true
-    repo: jackluson/babel-plugin-styled-components-px2vw
+
+jobs:
+  include:
+    # - stage: test
+    #   name: 'Unit Tests'
+    #   script: 'npm run test'
+    - stage: deploy
+      script: 'npm run build'
+      name: 'Deploy to NPM'
+      deploy:
+        provider: npm
+        email: luxuemin2108@gmail.com
+        api_key: $NPM_AUTH_TOKEN
+        on:
+          repo: jackluson/babel-plugin-styled-components-px2vw
+          branch: main
+        skip_cleanup: 'true'
+# before_deploy: npm run build
+# deploy:
+#   provider: npm
+#   email: luxuemin2108@gmail.com
+#   api_key: $NPM_AUTH_TOKEN
+#   on:
+#     repo: jackluson/babel-plugin-styled-components-px2vw
+#     branch: main
+#   skip_cleanup: 'true'
