@@ -12,6 +12,7 @@ branches:
 scripts:
   - npm test
   - npm install codecov -g
+  - npm install coveralls --save-dev
 notifications:
   email:
     recipients:
@@ -48,3 +49,4 @@ deploy:
 
 after_success:
   - codecov -f coverage/*.json
+  - npm run coveralls
