@@ -19,9 +19,9 @@ notifications:
 
 jobs:
   include:
-    # - stage: test
-    #   name: 'Unit Tests'
-    #   script: 'npm run test'
+    - stage: test
+      name: 'Unit Tests'
+      script: 'npm run test'
     - stage: deploy
       script: 'npm run build'
       name: 'Deploy to NPM'
