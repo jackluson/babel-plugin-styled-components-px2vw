@@ -6,9 +6,10 @@ branches:
     - main
     - "/^v?\\d{1}\\.\\d{1,2}.\\d{1,2}$/"
 
-# script:
-#   - echo $NPM_AUTH_TOKEN
-#   - npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+script:
+  - echo $NPM_AUTH_TOKEN
+  - yarn install
+  - npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
 notifications:
   email:
     recipients:
@@ -28,11 +29,11 @@ jobs:
         provider: npm
         email: luxuemin2108@gmail.com
         api_key: $NPM_AUTH_TOKEN
+        cleanup: true
         on:
           tags: true
           repo: jackluson/babel-plugin-styled-components-px2vw
           branch: main
-        skip_cleanup: 'true'
 # before_deploy: npm run build
 # deploy:
 #   provider: npm
