@@ -9,6 +9,9 @@ branches:
 # - echo $NPM_AUTH_TOKEN
 # - yarn install
 # - npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+scripts:
+  - npm test
+  - npm install codecov -g
 notifications:
   email:
     recipients:
@@ -35,9 +38,13 @@ notifications:
 deploy:
   provider: npm
   email: luxuemin2108@gmail.com
+  cleanup: true
   api_key:
     secure: WK1Ggb6NQfiXdgN4MCzbpx8JFyTUF8kS8Y0fSKl5OoHbvVFXeNlmsXAupVV7Lksl+Gnz3VrKZQHU3g7ldoR8O1emX3+Y5pvVtoSm0tp/75aNtCrLJSbzvFvOf/al3zPJoKOngVQeObDHlXh7K8nbwMsuirsSAmYtXuRseFEqZ9paz+AOXhTvlRGyz4ERthyecdoT04IVHDRtPqo5gcfdpYKPw8UAFWkVsVKFtqVS24XINa6ASilPsrOi8PVoEd9k7Fi2iEoawQmmVzPIZyOarNCEdq8TlF76JlIdwzRcI9h9hA04kcFJ9WemDBMR5cRywnUBDgfhUz9twAuYSUuHhmxgOYN+AY596B/RFH0b7INs/Nx9naAn+DRC2UY/flc4AhJiqJzYrywQcYb4bjpKCi7upKxDBA4k7U7m+pQyhIyGO2bLjYGkbldcb9TE6kguDnk7vYeE1+i5OySXxh8eKDzAfjO8CTPdfwF8jkqLNNgO1f0FLdYUkMH9CYwmcd2bFbqMSERhWeue+YJBeWXEsS8/dqyEmUDxnntfnM/CiPEdCi/p1CMLaCFepzWvyVBEpNnDeLCJi+8JtBq0uFuqr3kerEIzbynHNa4+UN7S5O3AypyO3QVDy4rpHHfQwwjxIIW2MWC7/IIo6pPdddRWzHCT/dUSmEd6HBTkeVmZp1Q=
   on:
+    tags: true
     repo: jackluson/babel-plugin-styled-components-px2vw
     branch: main
-  skip_cleanup: 'true'
+
+after_success:
+  - codecov -f coverage/*.json
