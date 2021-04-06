@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-styled-components-px2vw",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": "jackuson <18219112108@163.com>",
   "description": "Babel plugin for convert px to vw units of styled-components",
   "keywords": [
@@ -17,9 +17,9 @@
     "url": "https://github.com/jackluson/babel-plugin-styled-components-px2vw/issues"
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "typings": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "lint": "eslint src/**/*.ts --fix",
@@ -28,7 +28,7 @@
     "watch": "tsc -w -p .",
     "test": "jest --no-cache --coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "run:build": "node dist/index.js",
+    "run:build": "node lib/index.js",
     "precommit": "lint-staged -q"
   },
   "peerDependencies": {
@@ -72,12 +72,12 @@
     ]
   },
   "files": [
-    "dist",
+    "lib",
     "src",
     "types"
   ],
   "directories": {
-    "dist": "dist",
+    "lib": "lib",
     "test": "src/__tests__",
     "example": "example/src"
   },

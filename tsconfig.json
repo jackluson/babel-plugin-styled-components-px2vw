@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "removeComments": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "rootDir": "src",
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./types"],

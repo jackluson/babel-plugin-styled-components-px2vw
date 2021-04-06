@@ -12,7 +12,7 @@ branches:
 scripts:
   - npm test
   - npm install codecov -g
-  - npm install coveralls --save-dev
+  - npm install coveralls -g
 notifications:
   email:
     recipients:
