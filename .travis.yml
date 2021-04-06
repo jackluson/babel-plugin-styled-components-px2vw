@@ -1,7 +1,6 @@
 language: node_js
-version: 1.0
 node_js:
-  - node
+  - '12.13'
 branches:
   only:
     - main
@@ -30,6 +29,7 @@ jobs:
         email: luxuemin2108@gmail.com
         api_key: $NPM_AUTH_TOKEN
         on:
+          tags: true
           repo: jackluson/babel-plugin-styled-components-px2vw
           branch: main
         skip_cleanup: 'true'
