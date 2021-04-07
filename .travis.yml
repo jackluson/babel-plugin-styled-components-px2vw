@@ -6,7 +6,6 @@ branches:
     - main
     - "/^v?\\d{1}\\.\\d{1,2}.\\d{1,2}$/"
 # script:
-# - echo $NPM_AUTH_TOKEN
 # - yarn install
 # - npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
 script:

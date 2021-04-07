@@ -29,7 +29,8 @@
     "test": "jest --no-cache --coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "run:build": "node lib/index.js",
-    "precommit": "lint-staged -q"
+    "precommit": "lint-staged -q",
+    "postversion": "git push --follow-tags"
   },
   "peerDependencies": {
     "@babel/core": "^7.13.14",
