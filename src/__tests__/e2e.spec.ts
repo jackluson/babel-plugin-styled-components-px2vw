@@ -4,8 +4,6 @@ import plugin from '../';
 
 describe('e2e', () => {
   it('should work', function () {
-    console.log('__dirname', __dirname);
-
     const result = transformFileSync(join(__dirname, 'case.txt'), { plugins: [plugin] });
     if (result && result.code) {
       expect(result.code).toMatchSnapshot();
