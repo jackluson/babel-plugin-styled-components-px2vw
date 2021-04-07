@@ -1,7 +1,9 @@
 # babel-plugin-styled-components-px2vw
 
 [![npm version](https://badge.fury.io/js/babel-plugin-styled-components-px2vw.svg)](https://badge.fury.io/js/babel-plugin-styled-components-px2vw)
+![NPM Downloads](https://badgen.net/npm/dt/babel-plugin-styled-components-px2vw)
 [![Build Status](https://travis-ci.com/jackluson/babel-plugin-styled-components-px2vw.svg?branch=main)](https://travis-ci.com/jackluson/babel-plugin-styled-components-px2vw)
+[![codecov](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw/branch/main/graph/badge.svg)](https://codecov.io/gh/xuyuanxiang/babel-plugin-styled-components-px2rem)
 
 [Babel](https://babeljs.io/) plugin for convert `px` to `rem` units of [styled-components](https://www.styled-components.com/). its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem)
 
@@ -25,7 +27,16 @@ babel.config.js:
 
 ```javascript
 module.exports = {
-  plugins: [['styled-components-px2vw', { unitToConvert: 'px', unitPrecision: 5, minPixelValue: 0 }]],
+  plugins: [
+    [
+      'styled-components-px2vw',
+      {
+        unitToConvert: 'px',
+        unitPrecision: 5,
+        minPixelValue: 0,
+      },
+    ],
+  ],
 };
 ```
 
@@ -36,7 +47,11 @@ or .babelrc:
   "plugins": [
     [
       "styled-components-px2vw",
-      { "unitToConvert": 'px', "unitPrecision": 5, "minPixelValue": 0 }
+      {
+        "unitToConvert": 'px',
+        "unitPrecision": 5,
+        "minPixelValue": 0
+      }
     ]
   ]
 }

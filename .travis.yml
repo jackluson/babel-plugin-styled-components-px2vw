@@ -26,7 +26,7 @@ deploy:
     repo: jackluson/babel-plugin-styled-components-px2vw
     branch: main
 
-after_script:
+after_success:
   - codecov -f coverage/*.json
   - npm run coveralls
 notifications:
