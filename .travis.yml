@@ -9,18 +9,14 @@ branches:
 # - echo $NPM_AUTH_TOKEN
 # - yarn install
 # - npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
-scripts:
+script:
   - npm test
   - npm install codecov -g
-  - npm install coveralls -g
-notifications:
-  email:
-    recipients:
-      - luxuemin2108@gmail.com
-    on_success: never
-    on_failure: always
+  - npm install coveralls --save-dev
+
 before_deploy: npm run build
 deploy:
+  edge: true
   provider: npm
   email: luxuemin2108@gmail.com
   cleanup: true
@@ -31,6 +27,12 @@ deploy:
     repo: jackluson/babel-plugin-styled-components-px2vw
     branch: main
 
-after_success:
+after_script:
   - codecov -f coverage/*.json
   - npm run coveralls
+notifications:
+  email:
+    recipients:
+      - luxuemin2108@gmail.com
+    on_success: never
+    on_failure: always
