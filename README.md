@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw/branch/main/graph/badge.svg)](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw)
 [![MIT](https://img.shields.io/github/license/jackluson/babel-plugin-styled-components-px2vw?style=plastic)](https://github.com/jackluson/babel-plugin-styled-components-px2vw/blob/main/LICENSE)
 
-[Babel](https://babeljs.io/) plugin for convert `px` to `rem` units of [styled-components](https://www.styled-components.com/). its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem)
+[Babel](https://babeljs.io/) plugin for convert `px` to `vw` units of [styled-components](https://www.styled-components.com/). its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem)
 
 1. Use [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport) to process all css text in template strings.
 
@@ -75,6 +75,7 @@ see [example](example)
 | fontViewportUnit |  string  |  false   | vw                                                  |                                                                                                                                               Expected units for font. |
 | minPixelValue    |  number  |  false   | 1                                                   |                                                                                                                                Set the minimum pixel value to replace. |
 | replace          | boolean  |  false   | false                                               |                                                                                                              replaces rules containing vw instead of adding fallbacks. |
+| transformRuntime | boolean  |  false   | false                                               |                                                                                since 1.1.0，enable transformation of all expressions that embedded in template strings |
 
 ## Demo
 

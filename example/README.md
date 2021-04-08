@@ -1,4 +1,4 @@
-# babel-plugin-styled-components-px2rem-example
+# babel-plugin-styled-components-px2vw-example
 
 ## Get Started
 

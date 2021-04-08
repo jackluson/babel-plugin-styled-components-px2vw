@@ -1,3 +1,9 @@
+import { px2vw as _px2vw } from "babel-plugin-styled-components-px2rem/lib/px2vw";
+var _OPTIONS = {
+  viewportWidth: 750,
+  unitPrecision: 3,
+  minPixelValue: 1
+};
 import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
 export const GlobalStyleV = createGlobalStyle`
   html, body {
@@ -6,7 +12,7 @@ export const GlobalStyleV = createGlobalStyle`
     background-color: ${p => p.theme.background};
   }
   body.fontLoaded {
-    font-size: 17.06667vw;
+    font-size: 17.067vw;
     font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
@@ -14,18 +20,18 @@ export const GlobalStyleV = createGlobalStyle`
     body {
       flex-direction: row;
       width: 22.4vw;
-      font-size: 3.06667vw;
-      section{width: 568px;
-        font-size: 3.06667vw;
+      font-size: 3.067vw;
+      section{width: 75.733vw;
+        font-size: 3.067vw;
       }
     }
     .div {
-      font-size: 3.06667vw;
-      width: 75.73333vw;
+      font-size: 3.067vw;
+      width: 75.733vw;
     }
   }
   p {
-    line-height: 1.53333vw;
+    line-height: 1.533vw;
   }
 
   input, select, button {
@@ -37,23 +43,23 @@ export const GlobalStyleV = createGlobalStyle`
      //next
     background: url("http://ji"); /*j:// */
     width: 3.2vw; //hui
-    height: 23px; //78
+    height: 3.067vw;
   }
 `;
 const mixins = css`
   padding: 0 2.4vw;
-  margin: 2.13333vw 4.26667vw 2.13333vw 32em;
-  padding-top: 1.33333vw;
-  padding-bottom: 1.33333vw;
-  border: 0.26667vw solid black;
+  margin: 2.133vw 4.267vw 2.133vw 32em;
+  padding-top: 1.333vw;
+  padding-bottom: 1.333vw;
+  border: 0.267vw solid black;
 `;
 const Animation = keyframes`
   from {
-    transform: translateX(13.33333vw);
+    transform: translateX(13.333vw);
   }
 
   to {
-    transform: translateX(-13.33333vw);
+    transform: translateX(-13.333vw);
   }
 `;
 const Input = styled.input.attrs(props => ({
@@ -61,21 +67,21 @@ const Input = styled.input.attrs(props => ({
   size: props.size || '1em'
 }))`
   color: palevioletred;
-  font-size: 1.86667vw;
+  font-size: 1.867vw;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  margin: ${props => props.size};
+  margin: ${props => _px2vw(props.size, _OPTIONS)};
   padding: ${props => props.size};
 `;
 const GlobalStyle = createGlobalStyle`
   section {
-      font-size: 2.13333vw;
+      font-size: 2.133vw;
   }
 
   html body {
     font-size: 2.4vw;
     section {
-      font-size: 2.13333vw
+      font-size: 2.133vw
     }
   }
 `;
@@ -86,23 +92,29 @@ const BlockButton = styled.button`
   height: 12.8vw;
   line-height: 12.8vw;
 `;
+const lineHeight = '44';
 const InlineButton = styled.button`
-  ${mixins};
   display: inline;
-  width: ${props => props.width}px;
-  height: 12.8vw;
-  line-height: 12.8vw;
+  width: ${props => _px2vw(() => {
+  if (props.width) {
+    return props.width;
+  } else {
+    return 0;
+  }
+}, _OPTIONS)};
+  height: ${_px2vw(props.height, _OPTIONS)};
+  line-height: ${_px2vw(lineHeight, _OPTIONS)};
 `;
 const ExtendedButton = styled(InlineButton)`
   width: 16vw;
-  height: 4.26667vw;
-  line-height: 4.26667vw;
-  font-size: 1.86667vw;
+  height: 4.267vw;
+  line-height: 4.267vw;
+  font-size: 1.867vw;
 `;
 const SizeableButton = styled.button(props => `
   display: inline;
-  width: ${props.width}px;
-  height: ${props.height}px;
-  line-height: ${props.height}px;
+  width: ${_px2vw(props.width, _OPTIONS)};
+  height: ${_px2vw(props.height, _OPTIONS)};
+  line-height: ${_px2vw(props.height, _OPTIONS)};
   font-size: 2.4vw;
 `);

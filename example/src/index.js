@@ -67,7 +67,7 @@ const Input = styled.input.attrs((props) => ({
   font-size: 14px;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  margin: ${(props) => props.size};
+  margin: ${(props) => props.size}px;
   padding: ${(props) => props.size};
 `;
 
@@ -92,12 +92,18 @@ const BlockButton = styled.button`
   line-height: 96px;
 `;
 
+const lineHeight = '44';
 const InlineButton = styled.button`
-  ${mixins};
   display: inline;
-  width: ${(props) => props.width}px;
-  height: 96px;
-  line-height: 96px;
+  width: ${(props) => {
+    if (props.width) {
+      return props.width;
+    } else {
+      return 0;
+    }
+  }}px;
+  height: ${props.height}px;
+  line-height: ${lineHeight}px;
 `;
 
 const ExtendedButton = styled(InlineButton)`

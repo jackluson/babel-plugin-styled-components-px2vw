@@ -2,6 +2,7 @@ import { IPx2VwOptions } from '../types/options';
 // type TPx2Vw = typeof Px2VwPlugin;
 // export type Px2VwPluginOptions = Parameters<TPx2Vw>;
 export type IConfiguration = IPx2VwOptions & {
+  transformRuntime: boolean;
   tags: ReadonlyArray<string>;
 };
 class ConfigurationManager {
@@ -21,6 +22,7 @@ class ConfigurationManager {
     landscape: false,
     landscapeUnit: 'vw',
     landscapeWidth: 568,
+    transformRuntime: false,
     tags: ['styled', 'css', 'createGlobalStyle', 'keyframes'],
   };
   private _config: IConfiguration = ConfigurationManager.defaultConfiguration;

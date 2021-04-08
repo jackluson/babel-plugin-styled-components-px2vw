@@ -10,7 +10,7 @@ const FAKE_OPENING_WRAPPER = `styled-fake-wrapper/* start of styled-fake-wrapper
 const FAKE_CLOSING_WRAPPER = `
 }/* end of styled-fake-wrapper */`;
 // const PAIR_REG = /[\s\w-]+:[\s\w-]+/;
-const PAIR_REG = /[\s\w-]+:([\s-.\d]+px)+/;
+const PAIR_REG = /[\s\w-]+:([\s\w.-])+/;
 const SPLIT_SEPARATORS = [';', '\n', '{', '}'];
 
 const errorTokenMap = new Map(); // a map data prevent infinite loop

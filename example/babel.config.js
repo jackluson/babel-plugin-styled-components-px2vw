@@ -1,4 +1,4 @@
-const styledComponentsPx2Vw = require('../dist/index');
+const styledComponentsPx2Vw = require('../lib/index');
 module.exports = {
   plugins: [
     [
@@ -6,6 +6,7 @@ module.exports = {
       {
         propList: ['*', '!border-*'],
         // tags: ['styled'],
+        transformRuntime: true,
         viewportWidth: 750,
         unitPrecision: 5,
       },
