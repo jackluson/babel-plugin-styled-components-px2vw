@@ -14,6 +14,9 @@ export function px2vw(
     minPixelValue = configuration.config.minPixelValue,
   }: Partial<IConfiguration> = configuration.config,
 ): string {
+  if (typeof input === 'function') {
+    return px2vw(input(), { viewportWidth, unitPrecision, minPixelValue });
+  }
   const value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
   const pixels = Number.isNaN(value) ? 0 : value;
   if (pixels < minPixelValue) {
