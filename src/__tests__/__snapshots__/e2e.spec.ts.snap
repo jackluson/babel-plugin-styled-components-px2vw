@@ -1,13 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`e2e should transform runtime 1`] = `
-"import { px2vw as _px2vw } from \\"babel-plugin-styled-components-px2vw/lib/px2vw\\";
-var _OPTIONS = {
-  viewportWidth: 750,
-  unitPrecision: 5,
-  minPixelValue: 1
-};
-import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
+"import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
 const mixins = css\`
   padding: 0 2.13333vw;
   margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
@@ -30,7 +24,7 @@ const Input = styled.input.attrs(props => ({
   font-size: 1.86667vw;
   border: 1px solid palevioletred;
   border-radius: 1.06667vw;
-  width: \${props => _px2vw(props.width, _OPTIONS)};
+  width: \${props => _px2vw(props.width)};
   padding: \${props => props.size};
 \`;
 const GlobalStyle = createGlobalStyle\`
@@ -48,7 +42,7 @@ const BlockButton = styled.button\`
   \${mixins};
   display: block;
   width: 100%;
-  height: \${_px2vw(getHeight(), _OPTIONS)};
+  height: \${_px2vw(getHeight())};
   line-height: 12.8vw;
 \`;
 const lineHeight = '44';
@@ -60,9 +54,9 @@ const InlineButton = styled.button\`
   } else {
     return 0;
   }
-}, _OPTIONS)};
-  height: \${_px2vw(props.height, _OPTIONS)};
-  line-height: \${_px2vw(lineHeight, _OPTIONS)};
+})};
+  height: \${_px2vw(props.height)};
+  line-height: \${_px2vw(lineHeight)};
 \`;
 const ExtendedButton = styled(InlineButton)\`
   width: 16vw;
@@ -72,7 +66,7 @@ const ExtendedButton = styled(InlineButton)\`
 \`;
 const SizeableButton = styled.button(props => \`
   display: inline;
-  width: \${_px2vw(props.width, _OPTIONS)};
+  width: \${_px2vw(props.width)};
   height: \${props.height};
   font-size: 2.13333vw;
 \`);
@@ -85,7 +79,20 @@ const tagObj = {
 const str = \\"-->\\";
 const ingoreText = tagObj.tag\`
   string text line 1 \\\\n string text line 2 \${str + '--<'}
-\`;"
+\`;
+
+function _px2vw(input) {
+  if (typeof input === 'function') return _px2vw(input());
+  var value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
+  var pixels = Number.isNaN(value) ? 0 : value;
+
+  if (pixels < 1) {
+    return \`\${pixels}px\`;
+  }
+
+  var mul = Math.pow(10, 5 + 1);
+  return \`\${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}vw\`;
+}"
 `;
 
 exports[`e2e should work 1`] = `
