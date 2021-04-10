@@ -6,7 +6,9 @@
 [![codecov](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw/branch/main/graph/badge.svg)](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw)
 [![MIT](https://img.shields.io/github/license/jackluson/babel-plugin-styled-components-px2vw?style=plastic)](https://github.com/jackluson/babel-plugin-styled-components-px2vw/blob/main/LICENSE)
 
-[Babel](https://babeljs.io/) plugin for convert `px` to `vw` units of [styled-components](https://www.styled-components.com/). its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem)
+[Babel](https://babeljs.io/) plugin for convert `px` to `vw` units of [styled-components](https://www.styled-components.com/).
+
+its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem). Thanks
 
 1. Use [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport) to process all css text in template strings.
 
@@ -59,6 +61,10 @@ or .babelrc:
 ```
 
 see [example](example)
+
+1. `npm install`
+2. Typing: `npm test` to run unit tests
+3. Typing: `npm run build` to compile `src/index.js` to `dist/index.js`
 
 ### Options
 
