@@ -4,15 +4,14 @@ import TestUtils from 'react-dom/test-utils';
 import { ThemeProvider } from 'styled-components';
 import {
   StyledButton,
-  PropertyAccessExpression,
-  ArrowFunctionExpressionWithBlockBody,
+  SizeableButton,
+  LineHeightButton,
   MixinsButton,
   GlobalStyle,
-  ExtendStyledButton,
-  ArrowFunctionExpression,
+  ExtendButton,
+  Input,
   ThemeConsumer,
-  ConditionalExpression,
-} from '../index.jsx';
+} from '../index';
 
 const div = document.createElement('div');
 
@@ -25,46 +24,9 @@ afterEach((...args) => {
   document.body.removeChild(div);
 });
 
-
-it("should transform <ConditionalExpression/> with ThemeProvider's fontSize", function() {
+it('should render <Input/>', function () {
   TestUtils.act(() => {
-    ReactDOM.render(
-      <ThemeProvider theme={{ fontSize: 48 }}>
-        <ConditionalExpression />
-      </ThemeProvider>,
-      div,
-    );
-  });
-  const button = div.querySelector('button');
-  if (button) {
-    const style = getComputedStyle(button);
-    expect(style.fontSize).toBe('6.4vw');
-  } else {
-    throw new Error('ConditionalExpression should be render');
-  }
-});
-
-it('should transform <ConditionalExpression/> with self fontSize', function() {
-  TestUtils.act(() => {
-    ReactDOM.render(
-      <ThemeProvider theme={{ fontSize: 48 }}>
-        <ConditionalExpression fontSize={24} />
-      </ThemeProvider>,
-      div,
-    );
-  });
-  const button = div.querySelector('button');
-  if (button) {
-    const style = getComputedStyle(button);
-    expect(style.fontSize).toBe('3.2vw');
-  } else {
-    throw new Error('ConditionalExpression should be render');
-  }
-});
-
-it('should transform <ArrowFunctionExpression/>', function() {
-  TestUtils.act(() => {
-    ReactDOM.render(<ArrowFunctionExpression id="inputId" width={320} />, div);
+    ReactDOM.render(<Input id="inputId" width={320} />, div);
   });
   const input = div.querySelector('input#inputId');
   if (input) {
@@ -76,10 +38,9 @@ it('should transform <ArrowFunctionExpression/>', function() {
     expect(style.width).toBe('42.66667vw');
     expect(style.padding).toBe('16px');
   } else {
-    throw new Error('ArrowFunctionExpression should be render');
+    throw new Error('Input should be render');
   }
 });
-
 
 it('should render <GlobalStyle/>', function () {
   TestUtils.act(() => {
@@ -129,9 +90,9 @@ it('should render <StyledButton/>', function () {
   }
 });
 
-it('should render <ExtendStyledButton/>', function () {
+it('should render <ExtendButton/>', function () {
   TestUtils.act(() => {
-    ReactDOM.render(<ExtendStyledButton id="btnId" padding={64} />, div);
+    ReactDOM.render(<ExtendButton id="btnId" padding={64} />, div);
   });
   const button = div.querySelector('button#btnId');
   if (button) {
@@ -141,12 +102,13 @@ it('should render <ExtendStyledButton/>', function () {
     expect(style.width).toBe('16vw');
     expect(style.padding).toBe('8.53333vw');
   } else {
-    throw new Error('ExtendStyledButton should be render');
+    throw new Error('ExtendButton should be render');
   }
 });
-it('should transform <ArrowFunctionExpressionWithBlockBody/>', function() {
+
+it('should render <LineHeightButton/>', function () {
   TestUtils.act(() => {
-    ReactDOM.render(<ArrowFunctionExpressionWithBlockBody id="btnId" width="160" />, div);
+    ReactDOM.render(<LineHeightButton id="btnId" width="160" />, div);
   });
   const button = div.querySelector('button#btnId');
   if (button) {
@@ -154,13 +116,13 @@ it('should transform <ArrowFunctionExpressionWithBlockBody/>', function() {
     expect(style.lineHeight).toBe('5.86667vw');
     expect(style.width).toBe('21.33333vw');
   } else {
-    throw new Error('ArrowFunctionExpressionWithBlockBody should be render');
+    throw new Error('LineHeightButton should be render');
   }
 });
 
-it('should transform <PropertyAccessExpression/>', function() {
+it('should render <SizeableButton/>', function () {
   TestUtils.act(() => {
-    ReactDOM.render(<PropertyAccessExpression id="btnId" width={200} height="44px" />, div);
+    ReactDOM.render(<SizeableButton id="btnId" width={200} height="44px" />, div);
   });
   const button = div.querySelector('button#btnId');
   if (button) {
@@ -170,10 +132,9 @@ it('should transform <PropertyAccessExpression/>', function() {
     expect(style.height).toBe('44px');
     expect(style.width).toBe('26.66667vw');
   } else {
-    throw new Error('PropertyAccessExpression should be render');
+    throw new Error('SizeableButton should be render');
   }
 });
-
 
 it('should render <ThemeConsumer/>', function () {
   TestUtils.act(() => {

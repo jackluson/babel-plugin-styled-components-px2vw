@@ -1,51 +1,7 @@
 import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
-export const GlobalStyleV = createGlobalStyle`
-  html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
-    background-color: ${p => p.theme.background};
-  }
-  body.fontLoaded {
-    font-size: 17.06667vw;
-    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-
-  @media (orientation: landscape) {
-    body {
-      flex-direction: row;
-      width: 22.4vw;
-      font-size: 3.06667vw;
-      section{width: 568px;
-        font-size: 3.06667vw;
-      }
-    }
-    .div {
-      font-size: 3.06667vw;
-      width: 75.73333vw;
-    }
-  }
-  p {
-    line-height: 1.53333vw;
-  }
-
-  input, select, button {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
-  .icon {
-     //next
-    background: url("http://ji"); /*j:// */
-    width: 3.2vw; //hui
-    height: 23px; //78
-  }
-`;
 const mixins = css`
-  padding: 0 2.4vw;
-  margin: 2.13333vw 4.26667vw 2.13333vw 32em;
-  padding-top: 1.33333vw;
-  padding-bottom: 1.33333vw;
-  border: 0.26667vw solid black;
+  padding: 0 2.13333vw;
+  margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
 `;
 const Animation = keyframes`
   from {
@@ -56,39 +12,43 @@ const Animation = keyframes`
     transform: translateX(-13.33333vw);
   }
 `;
-const Input = styled.input.attrs(props => ({
+export const Input = styled.input.attrs(props => ({
   type: 'password',
-  size: props.size || '1em'
+  size: props.size || '16px',
+  width: props.width || 100
 }))`
   color: palevioletred;
   font-size: 1.86667vw;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  margin: ${props => _px2vw(props.size)};
+  width: ${props => _px2vw(props.width)};
   padding: ${props => props.size};
 `;
-const GlobalStyle = createGlobalStyle`
-  section {
-      font-size: 2.13333vw;
-  }
-
+const fontSize = 18;
+export const GlobalStyle = createGlobalStyle`
   html body {
-    font-size: 2.4vw;
-    section {
-      font-size: 2.13333vw
-    }
+    font-size: ${_px2vw(fontSize)};
+    width: 136.53333vw;
+    min-height: 106.66667vw;
   }
 `;
-const BlockButton = styled.button`
+
+function getHeight() {
+  const height = 100;
+  return height / 2;
+}
+
+const btnHeight = 40;
+export const MixinsButton = styled.button`
   ${mixins};
   display: block;
   width: 100%;
-  height: 12.8vw;
-  line-height: 12.8vw;
+  font-size: ${btnHeight > 40 ? _px2vw(40) : btnHeight => _px2vw(btnHeight * 1.5)};
+  height: ${_px2vw(getHeight())};
+  line-height: 4.26667vw;
 `;
 const lineHeight = '44';
-const InlineButton = styled.button`
-  display: inline;
+export const LineHeightButton = styled.button`
   width: ${props => _px2vw(() => {
   if (props.width) {
     return props.width;
@@ -96,22 +56,26 @@ const InlineButton = styled.button`
     return 0;
   }
 })};
-  height: ${_px2vw(props.height)};
   line-height: ${_px2vw(lineHeight)};
 `;
-const ExtendedButton = styled(InlineButton)`
+export const StyledButton = styled.button`
   width: 16vw;
   height: 4.26667vw;
-  line-height: 4.26667vw;
   font-size: 1.86667vw;
 `;
-const SizeableButton = styled.button(props => `
+export const ExtendButton = styled(StyledButton)`
+  padding: ${props => _px2vw(typeof props.padding === 'number' ? props.padding : 16)};
+`;
+export const SizeableButton = styled.button(props => `
   display: inline;
   width: ${_px2vw(props.width)};
-  height: ${_px2vw(props.height)};
-  line-height: ${_px2vw(props.height)};
-  font-size: 2.4vw;
+  height: ${props.height};
+  font-size: 2.13333vw;
 `);
+export const ThemeConsumer = styled.div`
+  font-size: ${props => _px2vw(props.theme.fontSize)};
+  color: ${props => props.theme.color};
+`;
 
 function _px2vw(input) {
   if (typeof input === 'function') return _px2vw(input());

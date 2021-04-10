@@ -24,7 +24,8 @@
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "build": "babel src/index.js --watch --out-file dist/index.js",
+    "build": "babel src/index.js --watch --out-file dist/index.js --config-file ./build.babel.config.js",
+    "build:jsx": "babel src/index.jsx --watch --out-file dist/index-jsx.js",
     "test": "jest"
   }
 }

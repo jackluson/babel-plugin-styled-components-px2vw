@@ -1,9 +1,5 @@
+import React from 'react';
 import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
-
-const mixins = css`
-  padding: 0 16px;
-  margin: 16px 32px 16px 32px;
-`;
 
 const Animation = keyframes`
   from {
@@ -15,7 +11,7 @@ const Animation = keyframes`
   }
 `;
 
-export const Input = styled.input.attrs((props) => ({
+export const ArrowFunctionExpression = styled.input.attrs(props => ({
   type: 'password',
   size: props.size || '16px',
   width: props.width || 100,
@@ -24,8 +20,8 @@ export const Input = styled.input.attrs((props) => ({
   font-size: 14px;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  width: ${(props) => props.width}px;
-  padding: ${(props) => props.size};
+  width: ${props => props.width}px;
+  padding: ${props => props.size};
 `;
 
 const fontSize = 18;
@@ -42,19 +38,21 @@ function getHeight() {
 
   return height / 2;
 }
-const btnHeight = 40;
+const mixins = css`
+  padding: 0 16px;
+  margin: 16px 32px 16px 32px;
+`;
 export const MixinsButton = styled.button`
   ${mixins};
   display: block;
   width: 100%;
-  font-size: ${btnHeight > 40 ? 40 : (btnHeight) => btnHeight * 1.5}px;
   height: ${getHeight()}px;
   line-height: 32px;
 `;
 
 const lineHeight = '44';
-export const LineHeightButton = styled.button`
-  width: ${(props) => {
+export const ArrowFunctionExpressionWithBlockBody = styled.button`
+  width: ${props => {
     if (props.width) {
       return props.width;
     } else {
@@ -70,12 +68,12 @@ export const StyledButton = styled.button`
   font-size: 14px;
 `;
 
-export const ExtendButton = styled(StyledButton)`
-  padding: ${(props) => (typeof props.padding === 'number' ? props.padding : 16)}px;
+export const ExtendStyledButton = styled(StyledButton)`
+  padding: ${props => props.padding}px;
 `;
 
-export const SizeableButton = styled.button(
-  (props) => `
+export const PropertyAccessExpression = styled.button(
+  props => `
   display: inline;
   width: ${props.width}px;
   height: ${props.height};
@@ -84,6 +82,14 @@ export const SizeableButton = styled.button(
 );
 
 export const ThemeConsumer = styled.div`
-  font-size: ${(props) => props.theme.fontSize}px;
-  color: ${(props) => props.theme.color};
+  font-size: ${props => props.theme.fontSize}px;
+  color: ${props => props.theme.color};
 `;
+
+export const ConditionalExpression = function({ fontSize } = {}) {
+  const StyledButton = styled.button`
+    font-size: ${typeof fontSize === 'number' ? fontSize : props => props?.theme.fontSize}px;
+  `;
+
+  return <StyledButton />;
+};
