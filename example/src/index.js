@@ -1,52 +1,8 @@
 import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
-export const GlobalStyleV = createGlobalStyle`
-  html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
-    background-color: ${(p) => p.theme.background};
-  }
-  body.fontLoaded {
-    font-size: 128px;
-    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-
-  @media (orientation: landscape) {
-    body {
-      flex-direction: row;
-      width: 168px;
-      font-size: 23px;
-      section{width: 568px;
-        font-size: 23px;
-      }
-    }
-    .div {
-      font-size: 23px;
-      width: 568px;
-    }
-  }
-  p {
-    line-height: 11.5px;
-  }
-
-  input, select, button {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
-  .icon {
-     //next
-    background: url("http://ji"); /*j:// */
-    width: 24px; //hui
-    height: 23px; //78
-  }
-`;
 
 const mixins = css`
-  padding: 0 18px;
-  margin: 16px 32px 16px 32em;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: 2px solid black;
+  padding: 0 16px;
+  margin: 16px 32px 16px 32px;
 `;
 
 const Animation = keyframes`
@@ -59,42 +15,43 @@ const Animation = keyframes`
   }
 `;
 
-const Input = styled.input.attrs((props) => ({
+export const Input = styled.input.attrs((props) => ({
   type: 'password',
-  size: props.size || '1em',
+  size: props.size || '16px',
+  width: props.width || 100,
 }))`
   color: palevioletred;
   font-size: 14px;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  margin: ${(props) => props.size}px;
+  width: ${(props) => props.width}px;
   padding: ${(props) => props.size};
 `;
 
-const GlobalStyle = createGlobalStyle`
-  section {
-      font-size: 16px;
-  }
-
+const fontSize = 18;
+export const GlobalStyle = createGlobalStyle`
   html body {
-    font-size: 18px;
-    section {
-      font-size: 16px
-    }
+    font-size: ${fontSize}px;
+    width: 1024px;
+    min-height: 800px;
   }
 `;
 
-const BlockButton = styled.button`
+function getHeight() {
+  const height = 100;
+
+  return height / 2;
+}
+export const MixinsButton = styled.button`
   ${mixins};
   display: block;
   width: 100%;
-  height: 96px;
-  line-height: 96px;
+  height: ${getHeight()}px;
+  line-height: 32px;
 `;
 
 const lineHeight = '44';
-const InlineButton = styled.button`
-  display: inline;
+export const LineHeightButton = styled.button`
   width: ${(props) => {
     if (props.width) {
       return props.width;
@@ -102,23 +59,29 @@ const InlineButton = styled.button`
       return 0;
     }
   }}px;
-  height: ${props.height}px;
   line-height: ${lineHeight}px;
 `;
 
-const ExtendedButton = styled(InlineButton)`
+export const StyledButton = styled.button`
   width: 120px;
   height: 32px;
-  line-height: 32px;
   font-size: 14px;
 `;
 
-const SizeableButton = styled.button(
+export const ExtendButton = styled(StyledButton)`
+  padding: ${(props) => (typeof props.padding === 'number' ? props.padding : 16)}px;
+`;
+
+export const SizeableButton = styled.button(
   (props) => `
   display: inline;
   width: ${props.width}px;
-  height: ${props.height}px;
-  line-height: ${props.height}px;
-  font-size: 18px;
+  height: ${props.height};
+  font-size: 16px;
 `,
 );
+
+export const ThemeConsumer = styled.div`
+  font-size: ${(props) => props.theme.fontSize}px;
+  color: ${(props) => props.theme.color};
+`;
