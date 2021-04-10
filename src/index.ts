@@ -29,6 +29,7 @@ import {
   isMemberExpression,
   isBlock,
   callExpression,
+  isConditionalExpression,
   arrowFunctionExpression,
   isArrowFunctionExpression,
   identifier,
@@ -75,6 +76,23 @@ function transformTemplateElement(it: TemplateElement): void {
   }
 }
 
+function transformTemplateExpression(expression: Expression, px2vw: Identifier): Expression {
+  if (isArrowFunctionExpression(expression)) {
+    if (isBlock(expression.body)) {
+      expression.body = callExpression(px2vw, [arrowFunctionExpression([], expression.body)]);
+    } else {
+      expression.body = callExpression(px2vw, [expression.body]);
+    }
+  } else if (isConditionalExpression(expression)) {
+    expression.consequent = transformTemplateExpression(expression.consequent, px2vw);
+    expression.alternate = transformTemplateExpression(expression.alternate, px2vw);
+  } else {
+    return callExpression(px2vw, [expression]);
+  }
+
+  return expression;
+}
+
 let _px2vw: Identifier | undefined;
 
 function transform(template: TemplateLiteral) {
@@ -95,17 +113,9 @@ function transform(template: TemplateLiteral) {
         if (next && isTemplateElement(next)) {
           const text = next.value?.raw || next.value?.cooked;
           if (text && /^px/.test(text)) {
-            if (isArrowFunctionExpression(expression)) {
-              if (isBlock(expression.body)) {
-                expression.body = callExpression(_px2vw, [arrowFunctionExpression([], expression.body)]);
-              } else {
-                expression.body = callExpression(_px2vw, [expression.body]);
-              }
-            } else {
-              const idx = template.expressions.findIndex((it) => it === expression);
-              if (idx !== -1) {
-                template.expressions[idx] = callExpression(_px2vw, [expression]);
-              }
+            const idx = template.expressions.findIndex((it) => it === expression);
+            if (idx !== -1) {
+              template.expressions[idx] = transformTemplateExpression(expression, _px2vw);
             }
             if (next.value && next.value.raw) {
               next.value.raw = next.value.raw.replace(/^px/, '');
