@@ -12,7 +12,7 @@ const FAKE_CLOSING_WRAPPER = `
 const FAKE_RULE = '/* start of styled-fake-rule */padding:/* end of styled-fake-rule */';
 const PAIR_REG = /[\s\w-]+:([\s\w.-])+/;
 // const PAIR_REG = /[\s\w-]+:([\s-\d]+px)+/;
-const PX_UNIT_REG = /([\s-\d]+px)+/;
+const PX_UNIT_REG = new RegExp(`([\\s-\\d]+${configuration.config.unitToConvert})+`); //;
 const SPLIT_SEPARATORS = [';', '\n', '{', '}'];
 
 const errorTokenMap = new Map(); // a map data prevent infinite loop

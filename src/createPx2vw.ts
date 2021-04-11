@@ -1,4 +1,4 @@
-import { identifier, Identifier, numericLiteral, Statement } from '@babel/types';
+import { identifier, Identifier, stringLiteral, numericLiteral, Statement } from '@babel/types';
 import templateBuild from '@babel/template';
 import { IConfiguration } from './configuration';
 
@@ -10,12 +10,13 @@ function %%px2vw%%(%%input%%, ...args) {
     if (Math.abs(pixels) < %%minPixelValue%%) {
         return \`\${pixels}px\`;
     }
+    var unit = %%viewportUnit%%;
     var mul = Math.pow(10, %%unitPrecision%% + 1);
-    return \`\${Math.round(Math.floor(pixels * 100 / %%viewportWidth%% * mul) / 10) * 10 / mul}vw\`;
+    return \`\${Math.round(Math.floor(pixels * 100 / %%viewportWidth%% * mul) / 10) * 10 / mul }\${unit}\`;
 }
 `;
 
-export type IPx2vwOptions = Pick<IConfiguration, 'viewportWidth' | 'unitPrecision' | 'minPixelValue'>;
+export type IPx2vwOptions = Pick<IConfiguration, 'viewportWidth' | 'unitPrecision' | 'viewportUnit' | 'minPixelValue'>;
 
 export default (_px2vw: Identifier, config: IPx2vwOptions): Statement => {
   const template = templateBuild.statement(source);
@@ -24,6 +25,7 @@ export default (_px2vw: Identifier, config: IPx2vwOptions): Statement => {
     px2vw: _px2vw,
     viewportWidth: numericLiteral(config.viewportWidth),
     unitPrecision: numericLiteral(config.unitPrecision),
+    viewportUnit: stringLiteral(config.viewportUnit),
     minPixelValue: numericLiteral(config.minPixelValue),
   });
 };
