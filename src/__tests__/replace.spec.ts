@@ -51,4 +51,52 @@ describe('replace()', () => {
 
     expect(replace('\n  &:last-child {\n    border: none')).toBe('\n  &:last-child {\n    border: none');
   });
+  it('should support multi-level code blocks', () => {
+    expect(
+      replace(`
+  & {
+    footer {
+      height: 80px;
+      background: green;
+    }
+
+    header {
+      height: 45px;
+      background: yellow;
+    }
+  }`),
+    ).toBe(`
+  & {
+    footer {
+      height: 10.66667vw;
+      background: green;
+    }
+
+    header {
+      height: 6vw;
+      background: yellow;
+    }
+  }`);
+    expect(
+      replace(`
+    & footer {
+      height: 80px;
+      background: green;
+    }
+
+    & header {
+      height: 45px;
+      background: yellow;
+    }`),
+    ).toBe(`
+    & footer {
+      height: 10.66667vw;
+      background: green;
+    }
+
+    & header {
+      height: 6vw;
+      background: yellow;
+    }`);
+  });
 });

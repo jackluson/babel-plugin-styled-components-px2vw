@@ -1,6 +1,10 @@
-import configuration from '../configuration';
+import { ConfigurationManager } from '../configuration';
 
 describe('configuration', () => {
+  let configuration: ConfigurationManager;
+  beforeEach(() => {
+    configuration = new ConfigurationManager();
+  });
   it('should return default configuration', function () {
     expect(configuration.config).toEqual({
       unitToConvert: 'px',

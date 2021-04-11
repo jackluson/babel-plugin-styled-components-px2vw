@@ -1,11 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`e2e should transform runtime 1`] = `
-"import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
-const mixins = css\`
-  padding: 0 2.13333vw;
-  margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
+exports[`e2e should support multi-level code blocks 1`] = `
+"const layout1 = styled.div\`
+  & {
+    position: relative;
+  }
+
+  & {
+    footer {
+      height: 10.66667vw;
+      background: green;
+    }
+
+    header {
+      height: 6vw;
+      background: yellow;
+    }
+  }
 \`;
+const layout2 = styled.div\`
+  & {
+    position: relative;
+  }
+
+  & footer {
+    height: 10.66667vw;
+    background: green;
+  }
+
+  & header {
+    height: 6vw;
+    background: yellow;
+  }
+\`;
+const layout3 = styled.div\`
+  & footer {
+    height: 10.66667vw;
+    background: green;
+  }
+
+  & header {
+    height: 6vw;
+    background: yellow;
+  }
+\`;
+
+function _px2vw(input, ...args) {
+  if (typeof input === 'function') return _px2vw(input(...args), ...args);
+  var value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
+  var pixels = Number.isNaN(value) ? 0 : value;
+
+  if (Math.abs(pixels) < 1) {
+    return \`\${pixels}px\`;
+  }
+
+  var mul = Math.pow(10, 5 + 1);
+  return \`\${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}vw\`;
+}"
+`;
+
+exports[`e2e should transform runtime 1`] = `
+"import React from 'react';
+import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
 const Animation = keyframes\`
   from {
     transform: translateX(13.33333vw);
@@ -15,78 +71,163 @@ const Animation = keyframes\`
     transform: translateX(-13.33333vw);
   }
 \`;
-const Input = styled.input.attrs(props => ({
+export const FunctionExpression = styled.button\`
+  height: \${_px2vw(function (props) {
+  return props.height;
+})};
+\`;
+const height = '44';
+export const ArrowFunction = styled.input.attrs(props => ({
   type: 'password',
-  size: props.size || '1em',
+  size: props.size || '16px',
   width: props.width || 100
 }))\`
   color: palevioletred;
   font-size: 1.86667vw;
   border: 1px solid palevioletred;
   border-radius: 1.06667vw;
-  width: \${props => _px2vw(props.width)};
+  width: \${props => _px2vw(props.width)}; /* PropertyAccess Body */
+  height: \${() => _px2vw(height)}; /* Identifier Body */
+  line-height: \${() => _px2vw('44')}; /* StringLiteral Body */
+  margin: \${() => _px2vw(32)}; /* NumericLiteral Body */
   padding: \${props => props.size};
 \`;
-const GlobalStyle = createGlobalStyle\`
-  html body {
-    font-size: 2.4vw;
-  }
-\`;
-
-function getHeight() {
-  const height = 100;
-  return height + window.screen.availHeight / 2;
-}
-
-const BlockButton = styled.button\`
-  \${mixins};
-  display: block;
-  width: 100%;
-  height: \${_px2vw(getHeight())};
-  line-height: 12.8vw;
-\`;
-const lineHeight = '44';
-const InlineButton = styled.button\`
-  display: inline;
+export const ArrowFunctionWithBlockBody = styled.button\`
   width: \${props => _px2vw(() => {
   if (props.width) {
     return props.width;
   } else {
     return 0;
   }
-})};
-  height: \${_px2vw(props.height)};
-  line-height: \${_px2vw(lineHeight)};
+})}; /* Block Body */
+
+  \${props => props.disabled ? 'height: 400px' : 'height: 200px'};
 \`;
-const ExtendedButton = styled(InlineButton)\`
+export const ArrowFunctionWithBinaryBody = styled.button\`
+  \${props => props.disabled && \`
+    width: 26.66667vw;
+    font-size: 1.86667vw;
+  \`};
+  height: \${props => _px2vw(!props.disabled && props.height)}; /* ArrowFunction with a LogicalExpression Body */
+  width: \${() => _px2vw(44 + 50)}; /* ArrowFunction with a BinaryExpression Body */
+\`;
+export const ArrowFunctionWithConditionalBody = styled.button\`
+  height: \${props => _px2vw(props.height ? height : 100)}; /* ArrowFunction with a ConditionalExpression Body */
+\`;
+const fontSize = 18;
+
+function getHeight() {
+  const height = 100;
+  return height / 2;
+}
+
+const mixins = css\`
+  padding: 0 2.13333vw;
+  margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
+\`;
+export const GlobalStyle = createGlobalStyle\`
+  html body {
+    \${mixins};
+    font-size: \${_px2vw(fontSize)}; /* Identifier */
+    width: 136.53333vw;
+    height: \${_px2vw(getHeight())}; /* CallExpression */
+  }
+\`;
+export const StyledButton = styled.button\`
   width: 16vw;
   height: 4.26667vw;
-  line-height: 4.26667vw;
   font-size: 1.86667vw;
 \`;
-const SizeableButton = styled.button(props => \`
+export const ExtendStyledButton = styled(StyledButton)\`
+  padding: \${props => _px2vw(props.padding)};
+\`;
+export const MemberExpression = styled.button(props => \`
   display: inline;
   width: \${_px2vw(props.width)};
   height: \${props.height};
   font-size: 2.13333vw;
 \`);
-const tagObj = {
-  tag(strings) {
-    console.log(strings.raw[0]);
-  }
-
-};
-const str = \\"-->\\";
-const ingoreText = tagObj.tag\`
-  string text line 1 \\\\n string text line 2 \${str + '--<'}
+export const ThemeConsumer = styled.div\`
+  font-size: \${props => _px2vw(props.theme.fontSize)};
+  color: \${props => props.theme.color};
 \`;
+export const ConditionalExpression = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button\`
+    font-size: \${typeof fontSize === 'number' ? _px2vw(fontSize) : props => _px2vw(props.theme.fontSize)};
+  \`;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+export const ConditionalExpressionWhenTrue = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button\`
+    font-size: \${typeof fontSize !== 'number' ? props => _px2vw(props.theme.fontSize) : _px2vw(fontSize)};
+  \`;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+export const ConditionalExpressionWhenFalse = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button\`
+    font-size: \${typeof fontSize === 'number' ? _px2vw(fontSize) : _px2vw(16)};
+  \`;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+const condition = false;
 
-function _px2vw(input) {
-  if (typeof input === 'function') return _px2vw(input());
+function calc() {
+  return 20;
+}
+
+export const BinaryAndLogicExpression = styled.button\`
+  \${condition || \`
+    width: 26.66667vw;
+  \`};
+  height: \${_px2vw(condition || 100)};
+  padding: \${_px2vw(40 + 50)};
+  line-height: \${_px2vw(calc() - 2)};
+\`;
+const Item = styled.div\`
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 2.13333vw;
+  font-weight: 400;
+\`;
+const Left = styled(Item)(({
+  icon
+}) => \`
+  flex: 0 0 30%;
+  padding-left: 15px;
+  \${icon ? \`background-position: 9px center;
+     background-repeat: no-repeat;
+     background-size: 9px 15px;
+     padding-left: 25px;
+  \` : ''}
+\`);
+const Foo = function () {}\`
+foo
+\`;
+const Bar = [''][0]\`
+ bar
+\`;
+const ArrayExpressionCallee = [styled](props => \`
+  color: palevioletred;
+  font-size: 14px;
+  border: 1px solid palevioletred;
+  border-radius: 8px;
+  width: \${props.width}px;
+\`);
+
+function _px2vw(input, ...args) {
+  if (typeof input === 'function') return _px2vw(input(...args), ...args);
   var value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
   var pixels = Number.isNaN(value) ? 0 : value;
 
-  if (pixels < 1) {
+  if (Math.abs(pixels) < 1) {
     return \`\${pixels}px\`;
   }
 
@@ -96,11 +237,8 @@ function _px2vw(input) {
 `;
 
 exports[`e2e should work 1`] = `
-"import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
-const mixins = css\`
-  padding: 0 2.13333vw;
-  margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
-\`;
+"import React from 'react';
+import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
 const Animation = keyframes\`
   from {
     transform: translateX(13.33333vw);
@@ -110,69 +248,154 @@ const Animation = keyframes\`
     transform: translateX(-13.33333vw);
   }
 \`;
-const Input = styled.input.attrs(props => ({
+export const FunctionExpression = styled.button\`
+  height: \${function (props) {
+  return props.height;
+}}px;
+\`;
+const height = '44';
+export const ArrowFunction = styled.input.attrs(props => ({
   type: 'password',
-  size: props.size || '1em',
+  size: props.size || '16px',
   width: props.width || 100
 }))\`
   color: palevioletred;
   font-size: 1.86667vw;
   border: 1px solid palevioletred;
   border-radius: 1.06667vw;
-  width: \${props => props.width}px;
+  width: \${props => props.width}px; /* PropertyAccess Body */
+  height: \${() => height}px; /* Identifier Body */
+  line-height: \${() => '44'}px; /* StringLiteral Body */
+  margin: \${() => 32}px; /* NumericLiteral Body */
   padding: \${props => props.size};
 \`;
-const GlobalStyle = createGlobalStyle\`
-  html body {
-    font-size: 2.4vw;
-  }
-\`;
-
-function getHeight() {
-  const height = 100;
-  return height + window.screen.availHeight / 2;
-}
-
-const BlockButton = styled.button\`
-  \${mixins};
-  display: block;
-  width: 100%;
-  height: \${getHeight()}px;
-  line-height: 12.8vw;
-\`;
-const lineHeight = '44';
-const InlineButton = styled.button\`
-  display: inline;
+export const ArrowFunctionWithBlockBody = styled.button\`
   width: \${props => {
   if (props.width) {
     return props.width;
   } else {
     return 0;
   }
-}}px;
-  height: \${props.height}px;
-  line-height: \${lineHeight}px;
+}}px; /* Block Body */
+
+  \${props => props.disabled ? 'height: 400px' : 'height: 200px'};
 \`;
-const ExtendedButton = styled(InlineButton)\`
+export const ArrowFunctionWithBinaryBody = styled.button\`
+  \${props => props.disabled && \`
+    width: 26.66667vw;
+    font-size: 1.86667vw;
+  \`};
+  height: \${props => !props.disabled && props.height}px; /* ArrowFunction with a LogicalExpression Body */
+  width: \${() => 44 + 50}px; /* ArrowFunction with a BinaryExpression Body */
+\`;
+export const ArrowFunctionWithConditionalBody = styled.button\`
+  height: \${props => props.height ? height : 100}px; /* ArrowFunction with a ConditionalExpression Body */
+\`;
+const fontSize = 18;
+
+function getHeight() {
+  const height = 100;
+  return height / 2;
+}
+
+const mixins = css\`
+  padding: 0 2.13333vw;
+  margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
+\`;
+export const GlobalStyle = createGlobalStyle\`
+  html body {
+    \${mixins};
+    font-size: \${fontSize}px; /* Identifier */
+    width: 136.53333vw;
+    height: \${getHeight()}px; /* CallExpression */
+  }
+\`;
+export const StyledButton = styled.button\`
   width: 16vw;
   height: 4.26667vw;
-  line-height: 4.26667vw;
   font-size: 1.86667vw;
 \`;
-const SizeableButton = styled.button(props => \`
+export const ExtendStyledButton = styled(StyledButton)\`
+  padding: \${props => props.padding}px;
+\`;
+export const MemberExpression = styled.button(props => \`
   display: inline;
   width: \${props.width}px;
   height: \${props.height};
   font-size: 2.13333vw;
 \`);
-const tagObj = {
-  tag(strings) {
-    console.log(strings.raw[0]);
-  }
-
+export const ThemeConsumer = styled.div\`
+  font-size: \${props => props.theme.fontSize}px;
+  color: \${props => props.theme.color};
+\`;
+export const ConditionalExpression = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button\`
+    font-size: \${typeof fontSize === 'number' ? fontSize : props => props.theme.fontSize}px;
+  \`;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
 };
-const str = \\"-->\\";
-const ingoreText = tagObj.tag\`
-  string text line 1 \\\\n string text line 2 \${str + '--<'}
-\`;"
+export const ConditionalExpressionWhenTrue = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button\`
+    font-size: \${typeof fontSize !== 'number' ? props => props.theme.fontSize : fontSize}px;
+  \`;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+export const ConditionalExpressionWhenFalse = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button\`
+    font-size: \${typeof fontSize === 'number' ? fontSize : 16}px;
+  \`;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+const condition = false;
+
+function calc() {
+  return 20;
+}
+
+export const BinaryAndLogicExpression = styled.button\`
+  \${condition || \`
+    width: 26.66667vw;
+  \`};
+  height: \${condition || 100}px;
+  padding: \${40 + 50}px;
+  line-height: \${calc() - 2}px;
+\`;
+const Item = styled.div\`
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 2.13333vw;
+  font-weight: 400;
+\`;
+const Left = styled(Item)(({
+  icon
+}) => \`
+  flex: 0 0 30%;
+  padding-left: 15px;
+  \${icon ? \`background-position: 9px center;
+     background-repeat: no-repeat;
+     background-size: 9px 15px;
+     padding-left: 25px;
+  \` : ''}
+\`);
+const Foo = function () {}\`
+foo
+\`;
+const Bar = [''][0]\`
+ bar
+\`;
+const ArrayExpressionCallee = [styled](props => \`
+  color: palevioletred;
+  font-size: 14px;
+  border: 1px solid palevioletred;
+  border-radius: 8px;
+  width: \${props.width}px;
+\`);"
 `;

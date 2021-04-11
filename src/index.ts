@@ -10,8 +10,7 @@
 import { ConfigAPI } from '@babel/core';
 import { declare } from '@babel/helper-plugin-utils';
 import { Visitor, NodePath } from '@babel/traverse';
-import templateBuild from '@babel/template';
-import { px2vw } from './px2vw';
+import createPx2vw from './createPx2vw';
 import {
   Program,
   TaggedTemplateExpression,
@@ -32,8 +31,6 @@ import {
   isConditionalExpression,
   arrowFunctionExpression,
   isArrowFunctionExpression,
-  identifier,
-  numericLiteral,
 } from '@babel/types';
 import configuration, { IConfiguration } from './configuration';
 import { replace } from './replace';
@@ -149,16 +146,7 @@ export default declare((api: ConfigAPI, options?: IConfiguration) => {
       enter(programPath: NodePath<Program>) {
         if (configuration.config.transformRuntime) {
           _px2vw = programPath.scope.generateUidIdentifier('px2vw');
-          const template = templateBuild.statement(px2vw);
-          programPath.node.body.push(
-            template({
-              input: identifier('input'),
-              px2vw: _px2vw,
-              viewportWidth: numericLiteral(configuration.config.viewportWidth),
-              unitPrecision: numericLiteral(configuration.config.unitPrecision),
-              minPixelValue: numericLiteral(configuration.config.minPixelValue),
-            }),
-          );
+          programPath.node.body.push(createPx2vw(_px2vw, configuration.config));
         }
         programPath.traverse({
           TaggedTemplateExpression(path: NodePath<TaggedTemplateExpression>) {

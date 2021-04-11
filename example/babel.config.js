@@ -14,6 +14,9 @@ module.exports = {
     ],
   ],
   env: {
+    bare: {
+      presets: [],
+    },
     test: {
       presets: ['@babel/preset-env', '@babel/preset-react'],
     },

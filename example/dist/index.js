@@ -28,8 +28,8 @@ const fontSize = 18;
 export const GlobalStyle = createGlobalStyle`
   html body {
     font-size: ${_px2vw(fontSize)};
-    width: 136.53333vw;
-    min-height: 106.66667vw;
+    width: 1024px;
+    min-height: 800px;
   }
 `;
 
@@ -73,16 +73,19 @@ export const SizeableButton = styled.button(props => `
   font-size: 2.13333vw;
 `);
 export const ThemeConsumer = styled.div`
+  //nextji
+  background: url('http://baid.com') 34px 45px; //ji
+  padding: 12px; //urji
   font-size: ${props => _px2vw(props.theme.fontSize)};
   color: ${props => props.theme.color};
 `;
 
-function _px2vw(input) {
-  if (typeof input === 'function') return _px2vw(input());
+function _px2vw(input, ...args) {
+  if (typeof input === 'function') return _px2vw(input(...args), ...args);
   var value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
   var pixels = Number.isNaN(value) ? 0 : value;
 
-  if (pixels < 1) {
+  if (Math.abs(pixels) < 1) {
     return `${pixels}px`;
   }
 

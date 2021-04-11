@@ -2,10 +2,10 @@ import { IPx2VwOptions } from '../types/options';
 // type TPx2Vw = typeof Px2VwPlugin;
 // export type Px2VwPluginOptions = Parameters<TPx2Vw>;
 export type IConfiguration = IPx2VwOptions & {
-  transformRuntime: boolean;
-  tags: ReadonlyArray<string>;
+  readonly transformRuntime: boolean;
+  readonly tags: ReadonlyArray<string>;
 };
-class ConfigurationManager {
+export class ConfigurationManager {
   private static readonly defaultConfiguration: IConfiguration = {
     unitToConvert: 'px',
     viewportWidth: 750,

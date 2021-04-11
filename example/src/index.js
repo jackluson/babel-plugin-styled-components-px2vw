@@ -84,6 +84,9 @@ export const SizeableButton = styled.button(
 );
 
 export const ThemeConsumer = styled.div`
+  //nextji
+  background: url('http://baid.com') 34px 45px; //ji
+  padding: 12px; //urji
   font-size: ${(props) => props.theme.fontSize}px;
   color: ${(props) => props.theme.color};
 `;

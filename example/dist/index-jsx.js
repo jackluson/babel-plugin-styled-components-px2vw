@@ -9,7 +9,8 @@ const Animation = keyframes`
     transform: translateX(-13.33333vw);
   }
 `;
-export const ArrowFunctionExpression = styled.input.attrs(props => ({
+const height = '44';
+export const ArrowFunction = styled.input.attrs(props => ({
   type: 'password',
   size: props.size || '16px',
   width: props.width || 100
@@ -18,8 +19,33 @@ export const ArrowFunctionExpression = styled.input.attrs(props => ({
   font-size: 1.86667vw;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  width: ${props => _px2vw(props.width)};
+  width: ${props => _px2vw(props.width)}; /* PropertyAccess Body */
+  height: ${() => _px2vw(height)}; /* Identifier Body */
+  line-height: ${() => _px2vw('44')}; /* StringLiteral Body */
+  margin: ${() => _px2vw(32)}; /* NumericLiteral Body */
   padding: ${props => props.size};
+`;
+export const ArrowFunctionWithBlockBody = styled.button`
+  width: ${props => _px2vw(() => {
+  if (props.width) {
+    return props.width;
+  } else {
+    return 0;
+  }
+})}; /* Block Body */
+
+  ${props => props.disabled ? 'height: 400px' : 'height: 200px'}
+`;
+export const ArrowFunctionWithBinaryBody = styled.button`
+  ${props => props.disabled && `
+    width: 26.66667vw;
+    font-size: 1.86667vw;
+  `};
+  height: ${props => _px2vw(!props.disabled && props.height)}; /* ArrowFunction with a LogicalExpression Body */
+  width: ${() => _px2vw(44 + 50)}; /* ArrowFunction with a BinaryExpression Body */
+`;
+export const ArrowFunctionWithConditionalBody = styled.button`
+  height: ${props => _px2vw(props.height ? height : 100)}; /* ArrowFunction with a ConditionalExpression Body */
 `;
 const fontSize = 18;
 export const GlobalStyle = createGlobalStyle`
@@ -63,7 +89,10 @@ export const StyledButton = styled.button`
   font-size: 1.86667vw;
 `;
 export const ExtendStyledButton = styled(StyledButton)`
-  padding: ${props => _px2vw(props.padding)};
+  padding: ${props => _px2vw(3 > 2 ? 3 : props.padding)};
+  margin: ${_px2vw(function (props) {
+  return props.margin;
+})};
 `;
 export const PropertyAccessExpression = styled.button(props => `
   display: inline;
@@ -72,6 +101,8 @@ export const PropertyAccessExpression = styled.button(props => `
   font-size: 2.13333vw;
 `);
 export const ThemeConsumer = styled.div`
+  background: url('http://baid.com') 4.53333vw 6vw;
+  padding: 1.6vw; //urji
   font-size: ${props => _px2vw(props.theme.fontSize)};
   color: ${props => props.theme.color};
 `;
@@ -84,12 +115,12 @@ export const ConditionalExpression = function ({
   return /*#__PURE__*/React.createElement(StyledButton, null);
 };
 
-function _px2vw(input) {
-  if (typeof input === 'function') return _px2vw(input());
+function _px2vw(input, ...args) {
+  if (typeof input === 'function') return _px2vw(input(...args), ...args);
   var value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
   var pixels = Number.isNaN(value) ? 0 : value;
 
-  if (pixels < 1) {
+  if (Math.abs(pixels) < 1) {
     return `${pixels}px`;
   }
 

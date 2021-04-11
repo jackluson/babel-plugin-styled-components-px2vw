@@ -11,7 +11,9 @@ const Animation = keyframes`
   }
 `;
 
-export const ArrowFunctionExpression = styled.input.attrs(props => ({
+
+const height = '44';
+export const ArrowFunction = styled.input.attrs(props => ({
   type: 'password',
   size: props.size || '16px',
   width: props.width || 100,
@@ -20,9 +22,43 @@ export const ArrowFunctionExpression = styled.input.attrs(props => ({
   font-size: 14px;
   border: 1px solid palevioletred;
   border-radius: 8px;
-  width: ${props => props.width}px;
+  width: ${props => props.width}px; /* PropertyAccess Body */
+  height: ${() => height}px; /* Identifier Body */
+  line-height: ${() => '44'}px; /* StringLiteral Body */
+  margin: ${() => 32}px; /* NumericLiteral Body */
   padding: ${props => props.size};
 `;
+
+export const ArrowFunctionWithBlockBody = styled.button`
+  width: ${props => {
+    if (props.width) {
+      return props.width;
+    } else {
+      return 0;
+    }
+  }}px; /* Block Body */
+
+  ${props => (props.disabled ? 'height: 400px' : 'height: 200px')}
+`;
+export const ArrowFunctionWithBinaryBody = styled.button`
+  ${props =>
+    props.disabled &&
+    `
+    width: 200px;
+    font-size: 14px;
+  `};
+  height: ${props =>
+    !props.disabled &&
+    props.height}px; /* ArrowFunction with a LogicalExpression Body */
+  width: ${() => 44 + 50}px; /* ArrowFunction with a BinaryExpression Body */
+`;
+export const ArrowFunctionWithConditionalBody = styled.button`
+  height: ${props =>
+    props.height
+      ? height
+      : 100}px; /* ArrowFunction with a ConditionalExpression Body */
+`;
+
 
 const fontSize = 18;
 export const GlobalStyle = createGlobalStyle`
@@ -69,7 +105,8 @@ export const StyledButton = styled.button`
 `;
 
 export const ExtendStyledButton = styled(StyledButton)`
-  padding: ${props => props.padding}px;
+  padding: ${props => 3 > 2 ? 3 : props.padding}px;
+  margin: ${function(props){return props.margin}}px;
 `;
 
 export const PropertyAccessExpression = styled.button(
@@ -82,6 +119,9 @@ export const PropertyAccessExpression = styled.button(
 );
 
 export const ThemeConsumer = styled.div`
+  //nextji
+  background: url('http://baid.com') 34px 45px; //ji
+  padding: 12px; //urji
   font-size: ${props => props.theme.fontSize}px;
   color: ${props => props.theme.color};
 `;

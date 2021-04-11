@@ -9,28 +9,35 @@ const FAKE_OPENING_WRAPPER = `styled-fake-wrapper/* start of styled-fake-wrapper
 `;
 const FAKE_CLOSING_WRAPPER = `
 }/* end of styled-fake-wrapper */`;
-// const PAIR_REG = /[\s\w-]+:[\s\w-]+/;
+const FAKE_RULE = '/* start of styled-fake-rule */padding:/* end of styled-fake-rule */';
 const PAIR_REG = /[\s\w-]+:([\s\w.-])+/;
+// const PAIR_REG = /[\s\w-]+:([\s-\d]+px)+/;
+const PX_UNIT_REG = /([\s-\d]+px)+/;
 const SPLIT_SEPARATORS = [';', '\n', '{', '}'];
 
 const errorTokenMap = new Map(); // a map data prevent infinite loop
-export const replace = memoize(10)(function (cssText: string): string {
+function process(css: string): string {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { tags, ...others } = configuration.config;
   const options: IPx2VwOptions = {
     ...others,
   };
+  return postcss([px2vw(options)]).process(css, {
+    // syntax: scss,
+  }).css;
+}
+function replaceWithRecord(cssText: string): string {
+  const { unitToConvert } = configuration.config;
   try {
-    const joinCssText = `${FAKE_OPENING_WRAPPER}${cssText}${FAKE_CLOSING_WRAPPER}`;
-    const css = postcss([px2vw(options)]).process(joinCssText, {
-      // syntax: scss,
-    }).css;
-
-    if (errorTokenMap.has(cssText)) {
-      errorTokenMap.delete(cssText);
+    if (PAIR_REG.test(cssText)) {
+      const replaced = process(`${FAKE_OPENING_WRAPPER}${cssText}${FAKE_CLOSING_WRAPPER}`);
+      return replaced.replace(FAKE_OPENING_WRAPPER, '').replace(FAKE_CLOSING_WRAPPER, '');
+    } else if (PX_UNIT_REG.test(cssText)) {
+      const replaced = process(`${FAKE_RULE}${cssText}`);
+      return replaced.replace(FAKE_RULE, '');
+    } else {
+      return cssText;
     }
-
-    return css.replace(FAKE_OPENING_WRAPPER, '').replace(FAKE_CLOSING_WRAPPER, '');
   } catch (ignored) {
     let tempResults: string[] = [];
     let cssStr = cssText;
@@ -41,7 +48,7 @@ export const replace = memoize(10)(function (cssText: string): string {
         // TODO:consider into propList option
         if (
           PAIR_REG.test(tokenRemoveComments) &&
-          tokenRemoveComments.includes(others.unitToConvert) &&
+          tokenRemoveComments.includes(unitToConvert) &&
           !errorTokenMap.get(token) &&
           !!token.trim()
         ) {
@@ -57,4 +64,8 @@ export const replace = memoize(10)(function (cssText: string): string {
 
     return cssStr;
   }
+}
+export const replace = memoize(10)(function (cssText: string): string {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return replaceWithRecord(cssText);
 });
