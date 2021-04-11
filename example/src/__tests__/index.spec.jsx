@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import { ThemeProvider } from 'styled-components';
 import {
-  StyledButton,
-  PropertyAccessExpression,
+  MemberExpression,
   ArrowFunctionExpressionWithBlockBody,
+  StyledButton,
   MixinsButton,
   GlobalStyle,
   ExtendStyledButton,
-  ArrowFunctionExpression,
   ThemeConsumer,
   ConditionalExpression,
 } from '../index.jsx';
@@ -74,7 +73,6 @@ it('should render <GlobalStyle/>', function () {
   const style = getComputedStyle(document.body);
   expect(style.fontSize).toBe('2.4vw');
   expect(style.width).toBe('136.53333vw');
-  expect(style.minHeight).toBe('106.66667vw');
 });
 
 it('should render <MixinsButton/>', function () {
@@ -85,7 +83,7 @@ it('should render <MixinsButton/>', function () {
   if (button) {
     const style = getComputedStyle(button);
     expect(style.display).toBe('block');
-    expect(style.padding).toBe('0px 2.13333vw');
+    expect(style.padding).toBe('-1px 2.13333vw');
     expect(style.margin).toBe('2.13333vw 4.26667vw 2.13333vw 4.26667vw');
     expect(style.lineHeight).toBe('4.26667vw');
     expect(style.width).toBe('100%');
@@ -125,23 +123,10 @@ it('should render <ExtendStyledButton/>', function () {
     throw new Error('ExtendStyledButton should be render');
   }
 });
-it('should transform <ArrowFunctionExpressionWithBlockBody/>', function() {
-  TestUtils.act(() => {
-    ReactDOM.render(<ArrowFunctionExpressionWithBlockBody id="btnId" width="160" />, div);
-  });
-  const button = div.querySelector('button#btnId');
-  if (button) {
-    const style = getComputedStyle(button);
-    expect(style.lineHeight).toBe('5.86667vw');
-    expect(style.width).toBe('21.33333vw');
-  } else {
-    throw new Error('ArrowFunctionExpressionWithBlockBody should be render');
-  }
-});
 
-it('should transform <PropertyAccessExpression/>', function() {
+it('should transform MemberExpression/>', function() {
   TestUtils.act(() => {
-    ReactDOM.render(<PropertyAccessExpression id="btnId" width={200} height="44px" />, div);
+    ReactDOM.render(<MemberExpression id="btnId" width={200} height="44px" />, div);
   });
   const button = div.querySelector('button#btnId');
   if (button) {

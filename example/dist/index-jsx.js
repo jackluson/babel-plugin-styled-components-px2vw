@@ -9,6 +9,11 @@ const Animation = keyframes`
     transform: translateX(-13.33333vw);
   }
 `;
+export const FunctionExpression = styled.button`
+  height: ${(...args) => _px2vw(function (props) {
+  return props.height;
+}, ...args)};
+`;
 const height = '44';
 export const ArrowFunction = styled.input.attrs(props => ({
   type: 'password',
@@ -48,13 +53,6 @@ export const ArrowFunctionWithConditionalBody = styled.button`
   height: ${props => props.height ? _px2vw(height) : _px2vw(100)}; /* ArrowFunction with a ConditionalExpression Body */
 `;
 const fontSize = 18;
-export const GlobalStyle = createGlobalStyle`
-  html body {
-    font-size: ${_px2vw(fontSize)};
-    width: 136.53333vw;
-    min-height: 106.66667vw;
-  }
-`;
 
 function getHeight() {
   const height = 100;
@@ -62,7 +60,7 @@ function getHeight() {
 }
 
 const mixins = css`
-  padding: 0 2.13333vw;
+  padding: -1px 2.13333vw;
   margin: 2.13333vw 4.26667vw 2.13333vw 4.26667vw;
 `;
 export const MixinsButton = styled.button`
@@ -72,16 +70,13 @@ export const MixinsButton = styled.button`
   height: ${_px2vw(getHeight())};
   line-height: 4.26667vw;
 `;
-const lineHeight = '44';
-export const ArrowFunctionExpressionWithBlockBody = styled.button`
-  width: ${props => _px2vw(() => {
-  if (props.width) {
-    return props.width;
-  } else {
-    return 0;
+export const GlobalStyle = createGlobalStyle`
+  html body {
+    ${mixins};
+    font-size: ${_px2vw(fontSize)}; /* Identifier */
+    width: 136.53333vw;
+    height: ${_px2vw(getHeight())}; /* CallExpression */
   }
-})};
-  line-height: ${_px2vw(lineHeight)};
 `;
 export const StyledButton = styled.button`
   width: 16vw;
@@ -89,31 +84,61 @@ export const StyledButton = styled.button`
   font-size: 1.86667vw;
 `;
 export const ExtendStyledButton = styled(StyledButton)`
-  padding: ${props => 3 > 2 ? _px2vw(3) : _px2vw(props.padding)};
-  margin: ${(...args) => _px2vw(function (props) {
-  return props.margin;
-}, ...args)};
+  padding: ${props => _px2vw(props.padding)};
 `;
-export const PropertyAccessExpression = styled.button(props => `
+export const MemberExpression = styled.button(props => `
   display: inline;
   width: ${_px2vw(props.width)};
   height: ${props.height};
   font-size: 2.13333vw;
 `);
 export const ThemeConsumer = styled.div`
-  background: url('http://baid.com') 4.53333vw 6vw;
-  padding: 1.6vw; //urji
   font-size: ${props => _px2vw(props.theme.fontSize)};
   color: ${props => props.theme.color};
 `;
 export const ConditionalExpression = function ({
-  fontSize
+  fontSize,
+  spacing
 } = {}) {
   const StyledButton = styled.button`
-    font-size: ${typeof fontSize === 'number' ? _px2vw(fontSize) : props => _px2vw(props?.theme.fontSize)};
+    font-size: ${typeof fontSize === 'number' ? _px2vw(fontSize) : props => _px2vw(props.theme.fontSize)};
+    ${spacing ? `
+     padding: 1.06667vw 2.13333vw 0 4.26667vw;
+     margin: 2.13333vw 0;
+  ` : ''}
   `;
   return /*#__PURE__*/React.createElement(StyledButton, null);
 };
+export const ConditionalExpressionWhenTrue = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button`
+    font-size: ${typeof fontSize !== 'number' ? props => _px2vw(props.theme.fontSize) : _px2vw(fontSize)};
+  `;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+export const ConditionalExpressionWhenFalse = function ({
+  fontSize
+} = {}) {
+  const StyledButton = styled.button`
+    font-size: ${typeof fontSize === 'number' ? _px2vw(fontSize) : _px2vw(16)};
+  `;
+  return /*#__PURE__*/React.createElement(StyledButton, null);
+};
+const condition = false;
+
+function calc() {
+  return 20;
+}
+
+export const BinaryAndLogicExpression = styled.button`
+  ${condition || `
+    width: 26.66667vw;
+  `};
+  height: ${_px2vw(condition || 100)};
+  padding: ${_px2vw(40 + 50)} 18px ${_px2vw('4')} 12px;
+  line-height: ${_px2vw(calc() - 2)};
+`;
 
 function _px2vw(input, ...args) {
   if (typeof input === 'function') return _px2vw(input(...args), ...args);
