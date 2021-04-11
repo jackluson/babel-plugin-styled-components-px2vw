@@ -34,7 +34,7 @@ export const ArrowFunctionWithBlockBody = styled.button`
   }
 })}; /* Block Body */
 
-  ${props => props.disabled ? 'height: 400px' : 'height: 200px'}
+  ${props => props.disabled ? "height: 53.33333vw" : "height: 26.66667vw"}
 `;
 export const ArrowFunctionWithBinaryBody = styled.button`
   ${props => props.disabled && `
@@ -45,7 +45,7 @@ export const ArrowFunctionWithBinaryBody = styled.button`
   width: ${() => _px2vw(44 + 50)}; /* ArrowFunction with a BinaryExpression Body */
 `;
 export const ArrowFunctionWithConditionalBody = styled.button`
-  height: ${props => _px2vw(props.height ? height : 100)}; /* ArrowFunction with a ConditionalExpression Body */
+  height: ${props => props.height ? _px2vw(height) : _px2vw(100)}; /* ArrowFunction with a ConditionalExpression Body */
 `;
 const fontSize = 18;
 export const GlobalStyle = createGlobalStyle`
@@ -89,10 +89,10 @@ export const StyledButton = styled.button`
   font-size: 1.86667vw;
 `;
 export const ExtendStyledButton = styled(StyledButton)`
-  padding: ${props => _px2vw(3 > 2 ? 3 : props.padding)};
-  margin: ${_px2vw(function (props) {
+  padding: ${props => 3 > 2 ? _px2vw(3) : _px2vw(props.padding)};
+  margin: ${(...args) => _px2vw(function (props) {
   return props.margin;
-})};
+}, ...args)};
 `;
 export const PropertyAccessExpression = styled.button(props => `
   display: inline;
@@ -124,6 +124,7 @@ function _px2vw(input, ...args) {
     return `${pixels}px`;
   }
 
+  var unit = "vw";
   var mul = Math.pow(10, 5 + 1);
-  return `${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}vw`;
+  return `${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}${unit}`;
 }

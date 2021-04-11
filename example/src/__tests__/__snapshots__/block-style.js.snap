@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test 1 1`] = `
+"<head><style data-styled=\\"\\" data-styled-version=\\"4.4.1\\">
+/* sc-component-id: sc-bdVaJa */
+.kYXaXh{position:relative;} .kYXaXh footer{height:10.66667vw;background:green;} .kYXaXh header{height:6vw;background:yellow;}</style></head><body><div><div id=\\"testId\\" class=\\"sc-bdVaJa kYXaXh\\"></div></div></body>"
+`;
+
+exports[`test 2 1`] = `
+"<head><style data-styled=\\"\\" data-styled-version=\\"4.4.1\\">
+/* sc-component-id: sc-bdVaJa */
+.kYXaXh{position:relative;} .kYXaXh footer{height:10.66667vw;background:green;} .kYXaXh header{height:6vw;background:yellow;}
+/* sc-component-id: sc-bwzfXH */
+.dcvpVT{position:relative;} .dcvpVT footer{height:10.66667vw;background:green;} .dcvpVT header{height:6vw;background:yellow;}</style></head><body><div><div id=\\"testId\\" class=\\"sc-bwzfXH dcvpVT\\"></div></div></body>"
+`;
+
+exports[`test 3 1`] = `
+"<head><style data-styled=\\"\\" data-styled-version=\\"4.4.1\\">
+/* sc-component-id: sc-bdVaJa */
+.kYXaXh{position:relative;} .kYXaXh footer{height:10.66667vw;background:green;} .kYXaXh header{height:6vw;background:yellow;}
+/* sc-component-id: sc-bwzfXH */
+.dcvpVT{position:relative;} .dcvpVT footer{height:10.66667vw;background:green;} .dcvpVT header{height:6vw;background:yellow;}
+/* sc-component-id: sc-htpNat */
+.oqRop footer{height:10.66667vw;background:green;} .oqRop header{height:6vw;background:yellow;}</style></head><body><div><div id=\\"testId\\" class=\\"sc-htpNat oqRop\\"></div></div></body>"
+`;

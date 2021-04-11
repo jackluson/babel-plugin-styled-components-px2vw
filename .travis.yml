@@ -12,7 +12,7 @@ script:
   - npm test
   - npm install codecov -g
   - npm install coveralls --save-dev
-  - git checkout package.json
+  - git restore package.json
 
 before_deploy: npm run build
 deploy:

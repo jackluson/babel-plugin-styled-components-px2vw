@@ -62,25 +62,6 @@ it('should transform <ConditionalExpression/> with self fontSize', function() {
   }
 });
 
-it('should transform <ArrowFunctionExpression/>', function() {
-  TestUtils.act(() => {
-    ReactDOM.render(<ArrowFunctionExpression id="inputId" width={320} />, div);
-  });
-  const input = div.querySelector('input#inputId');
-  if (input) {
-    const style = getComputedStyle(input);
-    expect(style.color).toBe('palevioletred');
-    expect(style.fontSize).toBe('1.86667vw');
-    expect(style.border).toBe('1px solid palevioletred');
-    expect(style.borderRadius).toBe('8px');
-    expect(style.width).toBe('42.66667vw');
-    expect(style.padding).toBe('16px');
-  } else {
-    throw new Error('ArrowFunctionExpression should be render');
-  }
-});
-
-
 it('should render <GlobalStyle/>', function () {
   TestUtils.act(() => {
     ReactDOM.render(

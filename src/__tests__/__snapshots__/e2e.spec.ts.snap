@@ -43,20 +43,7 @@ const layout3 = styled.div\`
     height: 6vw;
     background: yellow;
   }
-\`;
-
-function _px2vw(input, ...args) {
-  if (typeof input === 'function') return _px2vw(input(...args), ...args);
-  var value = typeof input === 'string' ? parseFloat(input) : typeof input === 'number' ? input : 0;
-  var pixels = Number.isNaN(value) ? 0 : value;
-
-  if (Math.abs(pixels) < 1) {
-    return \`\${pixels}px\`;
-  }
-
-  var mul = Math.pow(10, 5 + 1);
-  return \`\${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}vw\`;
-}"
+\`;"
 `;
 
 exports[`e2e should transform runtime 1`] = `
@@ -72,9 +59,9 @@ const Animation = keyframes\`
   }
 \`;
 export const FunctionExpression = styled.button\`
-  height: \${_px2vw(function (props) {
+  height: \${(...args) => _px2vw(function (props) {
   return props.height;
-})};
+}, ...args)};
 \`;
 const height = '44';
 export const ArrowFunction = styled.input.attrs(props => ({
@@ -101,7 +88,7 @@ export const ArrowFunctionWithBlockBody = styled.button\`
   }
 })}; /* Block Body */
 
-  \${props => props.disabled ? 'height: 400px' : 'height: 200px'};
+  \${props => props.disabled ? \\"height: 53.33333vw\\" : \\"height: 26.66667vw\\"};
 \`;
 export const ArrowFunctionWithBinaryBody = styled.button\`
   \${props => props.disabled && \`
@@ -112,7 +99,7 @@ export const ArrowFunctionWithBinaryBody = styled.button\`
   width: \${() => _px2vw(44 + 50)}; /* ArrowFunction with a BinaryExpression Body */
 \`;
 export const ArrowFunctionWithConditionalBody = styled.button\`
-  height: \${props => _px2vw(props.height ? height : 100)}; /* ArrowFunction with a ConditionalExpression Body */
+  height: \${props => props.height ? _px2vw(height) : _px2vw(100)}; /* ArrowFunction with a ConditionalExpression Body */
 \`;
 const fontSize = 18;
 
@@ -201,11 +188,11 @@ const Left = styled(Item)(({
   icon
 }) => \`
   flex: 0 0 30%;
-  padding-left: 15px;
-  \${icon ? \`background-position: 9px center;
+  padding-left: 2vw;
+  \${icon ? \`background-position: 1.2vw center;
      background-repeat: no-repeat;
-     background-size: 9px 15px;
-     padding-left: 25px;
+     background-size: 1.2vw 2vw;
+     padding-left: 3.33333vw;
   \` : ''}
 \`);
 const Foo = function () {}\`
@@ -231,8 +218,9 @@ function _px2vw(input, ...args) {
     return \`\${pixels}px\`;
   }
 
+  var unit = \\"vw\\";
   var mul = Math.pow(10, 5 + 1);
-  return \`\${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}vw\`;
+  return \`\${Math.round(Math.floor(pixels * 100 / 750 * mul) / 10) * 10 / mul}\${unit}\`;
 }"
 `;
 
@@ -278,7 +266,7 @@ export const ArrowFunctionWithBlockBody = styled.button\`
   }
 }}px; /* Block Body */
 
-  \${props => props.disabled ? 'height: 400px' : 'height: 200px'};
+  \${props => props.disabled ? \\"height: 53.33333vw\\" : \\"height: 26.66667vw\\"};
 \`;
 export const ArrowFunctionWithBinaryBody = styled.button\`
   \${props => props.disabled && \`
@@ -378,11 +366,11 @@ const Left = styled(Item)(({
   icon
 }) => \`
   flex: 0 0 30%;
-  padding-left: 15px;
-  \${icon ? \`background-position: 9px center;
+  padding-left: 2vw;
+  \${icon ? \`background-position: 1.2vw center;
      background-repeat: no-repeat;
-     background-size: 9px 15px;
-     padding-left: 25px;
+     background-size: 1.2vw 2vw;
+     padding-left: 3.33333vw;
   \` : ''}
 \`);
 const Foo = function () {}\`

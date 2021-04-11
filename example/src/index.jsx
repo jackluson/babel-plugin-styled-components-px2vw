@@ -40,24 +40,6 @@ export const ArrowFunctionWithBlockBody = styled.button`
 
   ${props => (props.disabled ? 'height: 400px' : 'height: 200px')}
 `;
-export const ArrowFunctionWithBinaryBody = styled.button`
-  ${props =>
-    props.disabled &&
-    `
-    width: 200px;
-    font-size: 14px;
-  `};
-  height: ${props =>
-    !props.disabled &&
-    props.height}px; /* ArrowFunction with a LogicalExpression Body */
-  width: ${() => 44 + 50}px; /* ArrowFunction with a BinaryExpression Body */
-`;
-export const ArrowFunctionWithConditionalBody = styled.button`
-  height: ${props =>
-    props.height
-      ? height
-      : 100}px; /* ArrowFunction with a ConditionalExpression Body */
-`;
 
 
 const fontSize = 18;
@@ -105,8 +87,7 @@ export const StyledButton = styled.button`
 `;
 
 export const ExtendStyledButton = styled(StyledButton)`
-  padding: ${props => 3 > 2 ? 3 : props.padding}px;
-  margin: ${function(props){return props.margin}}px;
+  padding: ${props => props.padding}px;
 `;
 
 export const PropertyAccessExpression = styled.button(
@@ -119,9 +100,6 @@ export const PropertyAccessExpression = styled.button(
 );
 
 export const ThemeConsumer = styled.div`
-  //nextji
-  background: url('http://baid.com') 34px 45px; //ji
-  padding: 12px; //urji
   font-size: ${props => props.theme.fontSize}px;
   color: ${props => props.theme.color};
 `;
