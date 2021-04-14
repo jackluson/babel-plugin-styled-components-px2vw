@@ -31,9 +31,16 @@ function replaceWithRecord(cssText: string): string {
   try {
     if (PAIR_REG.test(cssText)) {
       const replaced = process(`${FAKE_OPENING_WRAPPER}${cssText}${FAKE_CLOSING_WRAPPER}`);
+      if (errorTokenMap.has(cssText)) {
+        errorTokenMap.delete(cssText);
+      }
       return replaced.replace(FAKE_OPENING_WRAPPER, '').replace(FAKE_CLOSING_WRAPPER, '');
     } else if (PX_UNIT_REG.test(cssText)) {
       const replaced = process(`${FAKE_RULE}${cssText}`);
+      /* istanbul ignore next */
+      if (errorTokenMap.has(cssText)) {
+        errorTokenMap.delete(cssText);
+      }
       return replaced.replace(FAKE_RULE, '');
     } else {
       return cssText;
@@ -65,6 +72,7 @@ function replaceWithRecord(cssText: string): string {
     return cssStr;
   }
 }
+
 export const replace = memoize(10)(function (cssText: string): string {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return replaceWithRecord(cssText);

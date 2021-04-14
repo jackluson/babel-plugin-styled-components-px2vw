@@ -6,18 +6,18 @@
 [![codecov](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw/branch/main/graph/badge.svg)](https://codecov.io/gh/jackluson/babel-plugin-styled-components-px2vw)
 [![MIT](https://img.shields.io/github/license/jackluson/babel-plugin-styled-components-px2vw?style=plastic)](https://github.com/jackluson/babel-plugin-styled-components-px2vw/blob/main/LICENSE)
 
-English | [中文](README_ZH.md)
+[English](README.md) | 中文
 
-[Babel](https://babeljs.io/) plugin for convert `px` to `vw` units of [styled-components](https://www.styled-components.com/).
+[Babel 插件](https://babeljs.io/) 的主要功能是将 [styled-components](https://www.styled-components.com/)中的 px 单位转成 vw 单位。
 
-1. Use [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport) to process all css text in template strings.
-2. Add a runtime `px2vw` function polyfill to process expression embedded in template strings when enable [transformRuntime](#transform-runtime) option.
+1. 使用 [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport) 处理模板字符串中的所有 css 文本。
+2. 在启用[transformRuntime](#transform-runtime)选项时将运行时`px2vw`函数 把嵌入在模板字符串中的 px 单位转成 vw 单位。
 
-its inspiration comes from [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem). Thanks
+它的灵感来自 [babel-plugin-styled-components-px2rem](https://github.com/xuyuanxiang/babel-plugin-styled-components-px2rem). 特此鸣谢
 
-## Getting Started
+## 开始
 
-### Installation
+### 安装
 
 Add via npm
 
@@ -27,7 +27,7 @@ or yarn
 
 `$ yarn add -D babel-plugin-styled-components-px2vw`
 
-### Configuration
+### 配置
 
 babel.config.js:
 
@@ -63,9 +63,9 @@ or .babelrc:
 }
 ```
 
-### Composition
+### postcss 配置
 
-It should be put before [babel-plugin-styled-components](https://github.com/styled-components/babel-plugin-styled-components#readme)
+注意在配置 postcss 时把它放在 styled-components 前面 [babel-plugin-styled-components](https://github.com/styled-components/babel-plugin-styled-components#readme)
 
 ```json
 {
@@ -79,32 +79,32 @@ see [example](example)
 2. Typing: `npm test` to run unit tests
 3. Typing: `npm run build` to compile `src/index.jsx` to `dist/index-jsx.js`
 
-### Options
+### 配置选项
 
-> The options of the plugin are based on some of the option of [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport), but not all options properties work, such as `exclude`、`include`
+> 配置选项参数与 [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)大致一样, 有少量选项参数不支持, 例如 `exclude`、`include`
 
 | name             |   type   | required | default                                             |                                                                                                                                                            description |
 | :--------------- | :------: | :------: | :-------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | tags             | string[] |  false   | ["styled", "css", "createGlobalStyle", "keyframes"] | [styled-components](https://www.styled-components.com/) template literal [tagged](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) |
-| unitToConvert    |  string  |  false   | px                                                  |                                                                                                                                                        unit to convert |
-| viewportWidth    |  number  |  false   | 750                                                 |                                                                                                                                             The width of the viewport. |
-| unitPrecision    |  number  |  false   | 5                                                   |                                                                                                                  The decimal numbers to allow the vw units to grow to. |
-| propList         | string[] |  false   | ["*"]                                               |               The properties that can change from px to vw. more detail see [postcss-px-to-viewport propList opions](https://github.com/evrone/postcss-px-to-viewport) |
-| viewportUnit     |  string  |  false   | vw                                                  |                                                                                                                                                        Expected units. |
-| fontViewportUnit |  string  |  false   | vw                                                  |                                                                                                                                               Expected units for font. |
-| minPixelValue    |  number  |  false   | 1                                                   |                                                                                                                                Set the minimum pixel value to replace. |
-| replace          | boolean  |  false   | false                                               |                                                                                                              replaces rules containing vw instead of adding fallbacks. |
-| transformRuntime | boolean  |  false   | false                                               |                                                                                since 1.1.0，enable transformation of all expressions that embedded in template strings |
+| unitToConvert    |  string  |  false   | px                                                  |                                                                                                                                             需要转换的单位，默认为"px" |
+| viewportWidth    |  number  |  false   | 750                                                 |                                                                                                                                                       设计稿的视口宽度 |
+| unitPrecision    |  number  |  false   | 5                                                   |                                                                                                                                                   单位转换后保留的精度 |
+| propList         | string[] |  false   | ["*"]                                               |                    能转化为 vw 的属性列表.详细可看 [postcss-px-to-viewport propList opions](https://github.com/evrone/postcss-px-to-viewport/blob/master/README_CN.md) |
+| viewportUnit     |  string  |  false   | vw                                                  |                                                                                                                                                     希望使用的视口单位 |
+| fontViewportUnit |  string  |  false   | vw                                                  |                                                                                                                                                     字体使用的视口单位 |
+| minPixelValue    |  number  |  false   | 1                                                   |                                                                                                             设置最小的转换数值，如果为 1 的话，只有大于 1 的值会被转换 |
+| replace          | boolean  |  false   | false                                               |                                                                                                                                   是否直接更换属性值，而不添加备用属性 |
+| transformRuntime | boolean  |  false   | false                                               |                                                                           自从 1.1.0 版本之后，设置 `transformation:true` 之后，可以转换被字符串模板嵌套的字符串表达式 |
 
 ## Demo
 
 ### Transform Runtime
 
-If enabled `transformRuntime` option, all supported expressions embedded in template strings are processed as follows:
+开启`transformRuntime` 选项, 在字符串模板中所支持的表达式将按照如下处理:
 
-**Note:** Only expression that end with `px` will be processed.
+**Note:** 仅以 `px`结尾的将被处理
 
-#### FunctionExpression
+#### 函数表达式
 
 source code:
 
@@ -140,7 +140,7 @@ function _px2rem(input, ...args) {
 }
 ```
 
-#### ArrowFunctionExpression
+#### 箭头函数表达式
 
 source code:
 
@@ -234,7 +234,7 @@ export const ArrowFunctionWithConditionalBody = styled.button`
 `;
 ```
 
-#### ConditionalExpression
+#### 条件表达式
 
 source code
 
@@ -298,13 +298,13 @@ export const ConditionalExpressionWhenFalse = function ({ fontSize } = {}) {
 const condition = false;
 ```
 
-#### Other Expressions
+#### 其他表达式
 
 Identifier, CallExpression, BinaryExpress, StringLiteral, NumericLiteral, MemberExpression, LogicalExpression...
 
-### Disable transformRuntime (default)
+### 禁用 transformRuntime (默认)
 
-If disable transformRuntime option, all supported expressions embedded in template strings are not processed as follows:
+如果设置`transformRuntime:false`,所有被字符串模板嵌套的表达式都不被处理，代码如下:
 
 <details>
   <summary>

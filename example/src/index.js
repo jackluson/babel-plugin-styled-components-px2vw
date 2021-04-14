@@ -1,5 +1,24 @@
 import styled, { css, createGlobalStyle, keyframes } from 'styled-components';
 
+export const GlobalStyle1 = createGlobalStyle`
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    line-height: 1.5;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: ${(p) => p.theme.background};
+    font-size: 18px;
+    &.fontLoaded {
+      font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+    }
+  }
+`;
+
 const mixins = css`
   padding: 0 16px;
   margin: 16px 32px 16px 32px;
