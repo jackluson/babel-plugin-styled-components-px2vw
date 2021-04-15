@@ -79,6 +79,11 @@ see [example](example)
 2. Typing: `npm test` to run unit tests
 3. Typing: `npm run build` to compile `src/index.jsx` to `dist/index-jsx.js`
 
+### Online Demo
+
+点击
+[react-boilerplate-typescript-mobile](https://jackluson.github.io/react-boilerplate-typescript-mobile/) 切换到移动端设备，或者改变设备宽度，查看页面元素样式代码，这是 demo 源码参数[repo](https://github.com/jackluson/react-boilerplate-typescript-mobile)
+
 ### 配置选项
 
 > 配置选项参数与 [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)大致一样, 有少量选项参数不支持, 例如 `exclude`、`include`
