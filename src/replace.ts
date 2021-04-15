@@ -31,6 +31,7 @@ function replaceWithRecord(cssText: string): string {
   try {
     if (PAIR_REG.test(cssText)) {
       const replaced = process(`${FAKE_OPENING_WRAPPER}${cssText}${FAKE_CLOSING_WRAPPER}`);
+      /* istanbul ignore next */
       if (errorTokenMap.has(cssText)) {
         errorTokenMap.delete(cssText);
       }
@@ -43,6 +44,10 @@ function replaceWithRecord(cssText: string): string {
       }
       return replaced.replace(FAKE_RULE, '');
     } else {
+      /* istanbul ignore next */
+      if (errorTokenMap.has(cssText)) {
+        errorTokenMap.delete(cssText);
+      }
       return cssText;
     }
   } catch (ignored) {
@@ -56,10 +61,10 @@ function replaceWithRecord(cssText: string): string {
         if (
           PAIR_REG.test(tokenRemoveComments) &&
           tokenRemoveComments.includes(unitToConvert) &&
-          !errorTokenMap.get(token) &&
+          !errorTokenMap.get(tokenRemoveComments) &&
           !!token.trim()
         ) {
-          errorTokenMap.set(token, true);
+          errorTokenMap.set(tokenRemoveComments, true);
           tempResults.push(replace(tokenRemoveComments));
         } else {
           tempResults.push(token);
