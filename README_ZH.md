@@ -19,7 +19,7 @@
 
 ### 安装
 
-Add via npm
+via npm
 
 `$ npm install babel-plugin-styled-components-px2vw --save-dev`
 
