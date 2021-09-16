@@ -210,7 +210,40 @@ export default declare((api: ConfigAPI, options?: IConfiguration) => {
           programPath.node.body.push(createPx2vw(_px2vw, configuration.config));
         }
       },
-      enter(programPath: NodePath<Program>) {
+      enter(programPath: NodePath<Program>, pluginPass: Record<string, any>) {
+        const {
+          file: {
+            opts: { sourceFileName },
+          },
+        } = pluginPass;
+
+        const exclude = configuration.config.exclude;
+        const include = configuration.config.include;
+
+        if (include && sourceFileName) {
+          if (include instanceof RegExp) {
+            if (!include.test(sourceFileName)) return;
+          } else if (exclude instanceof Array) {
+            let flag = false;
+            for (let i = 0; i < include.length; i++) {
+              if (include[i].test(sourceFileName)) {
+                flag = true;
+                break;
+              }
+            }
+            if (!flag) return;
+          }
+        }
+
+        if (exclude && sourceFileName) {
+          if (exclude instanceof RegExp) {
+            if (exclude.test(sourceFileName)) return;
+          } else if (exclude instanceof Array) {
+            for (let i = 0; i < exclude.length; i++) {
+              if (exclude[i].test(sourceFileName)) return;
+            }
+          }
+        }
         if (configuration.config.transformRuntime) {
           _px2vw = programPath.scope.generateUidIdentifier('px2vw');
         } else {

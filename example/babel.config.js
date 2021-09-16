@@ -6,6 +6,7 @@ module.exports = {
       styledComponentsPx2Vw,
       {
         propList: ['*', '!border-*'],
+        // exclude: [/index\.js/],
         // tags: ['styled'],
         transformRuntime: true,
         viewportWidth: 750,
