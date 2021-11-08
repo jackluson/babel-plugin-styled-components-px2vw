@@ -91,6 +91,8 @@ export const StyledButton = styled.button`
 
 export const ExtendButton = styled(StyledButton)`
   padding: ${(props) => (typeof props.padding === 'number' ? props.padding : 16)}px;
+  width: 100px;
+  margin-top: 12px;
 `;
 
 export const SizeableButton = styled.button(

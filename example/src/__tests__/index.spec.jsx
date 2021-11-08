@@ -117,8 +117,9 @@ it('should render <ExtendStyledButton/>', function () {
     const style = getComputedStyle(button);
     expect(style.fontSize).toBe('1.86667vw');
     expect(style.height).toBe('4.26667vw');
-    expect(style.width).toBe('16vw');
+    expect(style.width).toBe('13.33333vw');
     expect(style.padding).toBe('8.53333vw');
+    expect(style.marginTop).toBe('1.6vw');
   } else {
     throw new Error('ExtendStyledButton should be render');
   }

@@ -85,6 +85,8 @@ export const StyledButton = styled.button`
 `;
 export const ExtendStyledButton = styled(StyledButton)`
   padding: ${props => _px2vw(props.padding)};
+  width: 13.33333vw;
+  margin-top: 1.6vw;
 `;
 export const MemberExpression = styled.button(props => `
   display: inline;

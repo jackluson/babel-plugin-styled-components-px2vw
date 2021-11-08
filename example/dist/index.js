@@ -9,7 +9,6 @@ export const GlobalStyle1 = createGlobalStyle`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
     background-color: ${p => p.theme.background};
     font-size: 2.4vw;
     &.fontLoaded {
@@ -84,6 +83,8 @@ export const StyledButton = styled.button`
 `;
 export const ExtendButton = styled(StyledButton)`
   padding: ${props => typeof props.padding === 'number' ? _px2vw(props.padding) : _px2vw(16)};
+  width: 13.33333vw;
+  margin-top: 1.6vw;
 `;
 export const SizeableButton = styled.button(props => `
   display: inline;
@@ -92,9 +93,8 @@ export const SizeableButton = styled.button(props => `
   font-size: 2.13333vw;
 `);
 export const ThemeConsumer = styled.div`
-  //nextji
-  background: url('http://baid.com') 34px 45px; //ji
-  padding: 12px; //urji
+  background: url('http://baid.com') 4.53333vw 6vw;
+  padding: 1.6vw; //urji
   font-size: ${props => _px2vw(props.theme.fontSize)};
   color: ${props => props.theme.color};
 `;

@@ -92,6 +92,8 @@ export const StyledButton = styled.button`
 `;
 export const ExtendStyledButton = styled(StyledButton)`
   padding: ${props => props.padding}px;
+  width: 100px;
+  margin-top: 12px;
 `;
 
 export const MemberExpression = styled.button(
